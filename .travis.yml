@@ -1,5 +1,7 @@
-services:
-  - postgresql
+# services:
+#   - postgresql
+addons:
+  postgresql: "11.3"
 
 language: ruby
 
