@@ -1,7 +1,8 @@
 class Task < ApplicationRecord
-  enum status: [ :pending, :processing, :completed ]
-  enum priority: [ :primary, :secondly, :thirdly, :common ]
-  belongs_to :user
+  # belongs_to :user
+  # 建立使用者之後再使用belongs_to
   has_many :task_tags
   has_many :tags, through: :task_tags
+  enum status: [:pending, :processing, :completed]
+  enum priority: [:primary, :secondly, :thirdly, :common]
 end
