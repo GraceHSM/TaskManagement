@@ -11,8 +11,12 @@ rvm:
   # Add more Ruby versions to list if supported,
   # Travis supports these versions: http://rubies.travis-ci.org/
 
+services:
+  - postgresql
+
 addons:
   postgresql: 11.3
+
 # 4. OPTIONAL Only customize the `script` option if needed.
 
 # The `script` option is an optional list of the main build task(s). `rake` is
