@@ -1,0 +1,14 @@
+<%= simple_form_for task do |f| %>
+  <%= f.input :title, label: false, placeholder: 'Title' %>
+  <%= f.input :content, label: false, placeholder: 'Content' %>
+  <%= f.input :priority, label:'優先順序', as: :radio_buttons, collection: ['primary', 'secondly', 'thirdly', 'common']%>
+  <%= f.input :status, label: '任務狀態', as: :radio_buttons, collection: ['pending', 'processing', 'completed'] %>
+  <%= f.input :start_at, label: '起始時間', as: :date, html5:true %>
+  <%= f.input :deadline_at, label: '結束時間', as: :date, html5:true %>
+  <%= f.submit '確定', method:'POST' %>
+<% end %>
+<%= link_to '返回任務列表', root_path %>
+
+
+
+
