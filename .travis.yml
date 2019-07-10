@@ -1,21 +1,15 @@
 services:
   - postgresql
 
-addons:
-  postgresql: '11.3'
-
 language: ruby
 
 rvm:
   - 2.6.0
 
 before_script:
-  - bundle install
-  - cp config/database.yml.travis config/database.yml
   - psql -c 'create database travis_ci_test;' -U postgres
 
-dist: trusty
-
 script:
-  - rails db:migrate RAILS_ENV=test
-  - rspec spec/features/task_management_spec.rb
+  - cp config/database.yml.travis config/database.yml
+  - bundle exec rails db:migrate RAILS_ENV=test
+  - bundle exec rspec spec/features/task_management_spec.rb
