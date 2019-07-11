@@ -1,7 +1,16 @@
 # services:
 #   - postgresql
+
 addons:
   postgresql: "11.3"
+  apt:
+    packages:
+    - postgresql-11.3
+    - postgresql-client-11.3
+env:
+  global:
+  - PGPORT=5433
+
 
 language: ruby
 
