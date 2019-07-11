@@ -46,6 +46,8 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 
   gem 'pry-rails', '~> 0.3.9'
+
+  gem 'faker', '~> 1.6', '>= 1.6.6'
 end
 
 group :development do

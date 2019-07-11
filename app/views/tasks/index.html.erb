@@ -7,8 +7,8 @@
   <li>Priority: <%= task.priority %></li>
   <li>Status: <%= task.status %></li>
   <li>
-    <%= link_to '修改', edit_task_path(task) %>
-    <%= link_to '刪除', task_path(task), method: 'DELETE' %>
+    <%= link_to 'Edit', edit_task_path(task) %>
+    <%= link_to 'Delete', task_path(task), method: 'DELETE' %>
   </li>
 <% end %>
 </ul>
