@@ -1,16 +1,5 @@
-# services:
-#   - postgresql
-
-addons:
-  postgresql: "11.3"
-  apt:
-    packages:
-    - postgresql-11.3
-    - postgresql-client-11.3
-env:
-  global:
-  - PGPORT=5433
-
+services:
+  - postgresql
 
 language: ruby
 
@@ -19,8 +8,8 @@ rvm:
 
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
+  - cp config/database.yml.travis config/database.yml
 
 script:
-  - cp config/database.yml.travis config/database.yml
   - bundle exec rails db:migrate RAILS_ENV=test
   - bundle exec rspec spec/features/task_management_spec.rb
