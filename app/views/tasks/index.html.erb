@@ -6,6 +6,8 @@
   <li>Content: <%= task.content %></li>
   <li>Priority: <%= task.priority %></li>
   <li>Status: <%= task.status %></li>
+  <li>Start_at: <%= task.start_at %></li>
+  <li>Deadline_at: <%= task.deadline_at %></li>
   <li>
     <%= link_to 'Edit', edit_task_path(task) %>
     <%= link_to 'Delete', task_path(task), method: 'DELETE' %>
