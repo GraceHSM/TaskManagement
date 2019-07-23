@@ -1,0 +1,29 @@
+'zh-TW':
+  TaskManagement: '任務管理系統'
+  TaskLists: '任務清單'
+  title: '標題'
+  content: '內容'
+  priority: '優先順序'
+  status: '任務狀態'
+  start_at: '開始時間'
+  deadline_at: '結束時間'
+  edit: '編輯'
+  delete: '刪除'
+  new_task: '新增任務'
+  edit_task: '修改任務'
+  create_success: '新增成功'
+  edit_success: '修改成功'
+  delete_success: '刪除成功'
+  submit: '確定'
+
+  activerecord:
+    models:
+      user: Task
+    attributes:
+      user:
+        primary: '高'
+        secondly: '中'
+        common: '低'
+        pending: '待處理'
+        processing: '進行中'
+        completed: '已完成'

@@ -30,4 +30,19 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  TaskManagement: 'TaskManagement'
+  TaskLists: 'Task Lists'
+  title: 'Title'
+  content: 'Content'
+  priority: 'Priority'
+  status: 'Status'
+  start_at: 'Start_at'
+  deadline_at: 'Deadline_at'
+  edit: 'Edit'
+  delete: 'Delete'
+  new_task: 'New Task'
+  edit_task: 'Edit Task'
+  create_success: 'Create Task Success'
+  edit_success: 'Edit Task Success'
+  delete_success: 'Delete Task Success'
+  submit: 'Submit'
