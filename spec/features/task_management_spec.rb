@@ -15,20 +15,20 @@ RSpec.describe Task, :type => :feature do
   it "Create a new task" do
     visit new_task_path
     new_task(task)
-    check_page(task, '新增成功')
+    check_page(task, I18n.t('create_success'))
   end
 
   it "Edit a task" do
     old_task = create_task
     visit edit_task_path(old_task.id)
     edit_task(old_task, task)
-    check_page(task, '修改成功')
+    check_page(task, I18n.t('edit_success'))
   end
 
   it "Destroy a task" do
     task = create_task
     visit tasks_path
-    expect{ click_on "Delete" }.to change{ Task.count }.by(-1)
+    expect{ click_on I18n.t('delete') }.to change{ Task.count }.by(-1)
   end
 
   private
@@ -37,9 +37,9 @@ RSpec.describe Task, :type => :feature do
     fill_in "task_content", :with => task.content
     fill_in "task_start_at", :with => task.start_at
     fill_in "task_deadline_at", :with => task.deadline_at
-    choose (task.priority)
-    choose (task.status)
-    click_button "確定"
+    choose ('task_priority_' + task.priority)
+    choose ('task_status_' + task.status)
+    click_button I18n.t('submit')
     task.save
   end
 
@@ -48,9 +48,9 @@ RSpec.describe Task, :type => :feature do
     fill_in "task_content", :with => task.content
     fill_in "task_start_at", :with => task.start_at
     fill_in "task_deadline_at", :with => task.deadline_at
-    choose (task.priority)
-    choose (task.status)
-    click_button "確定"
+    choose ('task_priority_' + task.priority)
+    choose ('task_status_' + task.status)
+    click_button I18n.t('submit')
     task.update(title: task.title, content: task.content, start_at: task.start_at, deadline_at: task.deadline_at, priority: task.priority, status: task.status)
   end
 

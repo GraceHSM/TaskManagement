@@ -4,7 +4,7 @@ FactoryBot.define do
     content { Faker::Lorem.paragraph }
     start_at { DateTime.new - rand(1..3) }
     deadline_at { DateTime.new + rand(1..3) }
-    priority { rand 0..3 }
+    priority { rand 0..2 }
     status { rand 0..2 }
   end
 end
