@@ -1,5 +1,7 @@
 <h2><%= t('TaskLists') %></h2>
 <div><%= link_to t('new_task'), new_task_path %></div>
+<div><%= link_to t('created_sort') + ' +', sort_tasks_path(col: 'created_at', order: 'ASC') %></div>
+<div><%= link_to t('created_sort') + ' -', sort_tasks_path(col: 'created_at', order: 'DESC') %></div>
 <div class="lists">
   <section class="task_cards">
   <% @tasks.each do |task| %>

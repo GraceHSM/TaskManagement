@@ -15,6 +15,7 @@
   edit_success: '修改成功'
   delete_success: '刪除成功'
   submit: '確定'
+  created_sort: '建立日期'
 
   activerecord:
     models:

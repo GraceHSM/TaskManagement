@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :task_find, :only => [:edit, :update, :destroy]
 
   def index
-   @tasks = Task.all
+   @tasks = Task.order('id ASC')
    # 日後加上分頁功能再將all改掉
   end
 
@@ -33,6 +33,14 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy if @task
     redirect_to root_path, notice: t('delete_success')
+  end
+
+
+  def sort
+    col = params[:col]
+    order = params[:order]
+    @tasks = Task.order_by(col,order)
+    render :index
   end
 
   private

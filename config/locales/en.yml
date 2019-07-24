@@ -15,6 +15,7 @@ en:
   edit_success: 'Edit Task Success'
   delete_success: 'Delete Task Success'
   submit: 'Submit'
+  created_sort: 'Create_at'
 
   activerecord:
     models:
