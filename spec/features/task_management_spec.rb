@@ -109,8 +109,10 @@ RSpec.describe Task, :type => :feature do
 
     visit tasks_path
     click_on button
-    expect(Task.order_by(column, order).first[column].to_s(:taskdate)).to eq((DateTime.now - 2).to_s(:taskdate))
-    expect(Task.order_by(column, order).last[column].to_s(:taskdate)).to eq((DateTime.now - 0).to_s(:taskdate))
+    expect(Task.order_by(column, 'ASC').first[column].to_s(:taskdate)).to eq((DateTime.now - 2).to_s(:taskdate))
+    expect(Task.order_by(column, 'ASC').last[column].to_s(:taskdate)).to eq((DateTime.now).to_s(:taskdate))
+    expect(Task.order_by(column, 'DESC').first[column].to_s(:taskdate)).to eq((DateTime.now).to_s(:taskdate))
+    expect(Task.order_by(column, 'DESC').last[column].to_s(:taskdate)).to eq((DateTime.now - 2).to_s(:taskdate))
   end
 
 end
