@@ -15,7 +15,7 @@ class Task < ApplicationRecord
   # 缺 ） controller 程式碼會比較長
   # 優 ） 用不同欄位排序，可以重複使用此方法
   # ? )  網址會顯示欄位、排序是否合適？
-  def self.order_by(column = 'id', order = 'ASC')
+  def self.order_by(column, order)
     order(%Q(#{ column } #{ order }))
   end
 
