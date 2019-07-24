@@ -62,8 +62,8 @@ RSpec.describe Task, :type => :feature do
     expect(page).to have_content(message)
     expect(page).to have_content(task.title)
     expect(page).to have_content(task.content)
-    expect(page).to have_content(task.start_at)
-    expect(page).to have_content(task.deadline_at)
+    expect(page).to have_content(task.start_at.to_s(:taskdate))
+    expect(page).to have_content(task.deadline_at.to_s(:taskdate))
     expect(page).to have_content(task.priority)
     expect(page).to have_content(task.status)
   end

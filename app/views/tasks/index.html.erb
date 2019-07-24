@@ -26,12 +26,12 @@
 
       <section>
         <h2><%= t('start_at') %></h2>
-        <div><%= task.start_at %></div>
+        <div><%= task.start_at.to_s(:taskdate) %></div>
       </section>
 
       <section>
         <h2><%= t('deadline_at') %></h2>
-        <div><%= task.deadline_at %></div>
+        <div><%= task.deadline_at.to_s(:taskdate) %></div>
       </section>
 
       <section class="options">
