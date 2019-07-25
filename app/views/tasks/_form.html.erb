@@ -1,10 +1,13 @@
 <%= simple_form_for task do |f| %>
   <%= f.input :title, label: false, placeholder: 'Title' %>
   <%= f.input :content, label: false, placeholder: 'Content' %>
-  <%= f.input :priority, label:'優先順序', as: :radio_buttons, collection: ['primary', 'secondly', 'thirdly', 'common']%>
-  <%= f.input :status, label: '任務狀態', as: :radio_buttons, collection: ['pending', 'processing', 'completed'] %>
-  <%= f.input :start_at, label: '起始時間', as: :date, html5: true %>
-  <%= f.input :deadline_at, label: '結束時間', as: :date, html5: true %>
-  <%= f.submit '確定', method: 'POST' %>
+
+  <%= f.input :priority, label: t('priority'), as: :radio_buttons, collection: [[User.human_attribute_name('primary'), 'primary'], [User.human_attribute_name('secondly'), 'secondly'], [User.human_attribute_name('common'), 'common']] %>
+
+  <%= f.input :status, label: t('status'), as: :radio_buttons, collection: [[User.human_attribute_name('pending'), 'pending'], [User.human_attribute_name('processing'), 'processing'], [User.human_attribute_name('completed'), 'completed']] %>
+
+  <%= f.input :start_at, label: t('start_at'), as: :date, html5: true %>
+  <%= f.input :deadline_at, label: t('deadline_at'), as: :date, html5: true %>
+  <%= f.submit t('submit'), method: 'POST' %>
 <% end %>
-<%= link_to '返回任務列表', root_path %>
+<%= link_to t('TaskLists'), root_path %>

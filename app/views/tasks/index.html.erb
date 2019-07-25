@@ -1,16 +1,46 @@
-<h1>任務列表</h1>
-<%= link_to '新增任務', new_task_path %>
-<ul>
-<% @tasks.each do |task| %>
-  <li>Title: <%= task.title %></li>
-  <li>Content: <%= task.content %></li>
-  <li>Priority: <%= task.priority %></li>
-  <li>Status: <%= task.status %></li>
-  <li>Start_at: <%= task.start_at %></li>
-  <li>Deadline_at: <%= task.deadline_at %></li>
-  <li>
-    <%= link_to 'Edit', edit_task_path(task) %>
-    <%= link_to 'Delete', task_path(task), method: 'DELETE' %>
-  </li>
-<% end %>
-</ul>
+<h2><%= t('TaskLists') %></h2>
+<div><%= link_to t('new_task'), new_task_path %></div>
+<div class="lists">
+  <section class="task_cards">
+  <% @tasks.each do |task| %>
+    <article class="card">
+      <section class="title">
+        <h2><%= t('title') %></h2>
+        <div><%= task.title %></div>
+      </section>
+
+      <section class="content">
+        <h2><%= t('content') %></h2>
+        <div><%= task.content %></div>
+      </section>
+
+      <section>
+        <h2><%= t('priority') %></h2>
+        <div><%= task.priority %></div>
+      </section>
+
+      <section>
+        <h2><%= t('status') %></h2>
+        <div><%= task.status %></div>
+      </section>
+
+      <section>
+        <h2><%= t('start_at') %></h2>
+        <div><%= task.start_at.to_s(:taskdate) %></div>
+      </section>
+
+      <section>
+        <h2><%= t('deadline_at') %></h2>
+        <div><%= task.deadline_at.to_s(:taskdate) %></div>
+      </section>
+
+      <section class="options">
+        <ul>
+          <li><%= link_to t('edit'), edit_task_path(task) %></li>
+          <li><%= link_to t('delete'), task_path(task), method: 'DELETE' %></li>
+        </ul>
+      </section>
+    </article>
+    <% end %>
+  </section>
+</div>

@@ -4,5 +4,5 @@ class Task < ApplicationRecord
   has_many :task_tags
   has_many :tags, through: :task_tags
   enum status: [:pending, :processing, :completed]
-  enum priority: [:primary, :secondly, :thirdly, :common]
+  enum priority: [:primary, :secondly, :common]
 end
