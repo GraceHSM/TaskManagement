@@ -15,13 +15,13 @@ RSpec.describe Task, :type => :feature do
 
   # 依 task 建立日期 created_at 排序
   describe "Display tasks order by created_at" do
-    it "created_at ASC" do
-      create_task_date('created_at', 3)
+    it "ASC" do
+      create_task_date('created_at', 2)
       check_page_order('created_at', 'ASC')
     end
 
-    it "created_at DESC" do
-      create_task_date('created_at', 3)
+    it "DESC" do
+      create_task_date('created_at', 2)
       check_page_order('created_at', 'DESC')
     end
   end
@@ -93,26 +93,36 @@ RSpec.describe Task, :type => :feature do
   def create_task_date(col, num)
     column = col.to_sym
     num.times{ |n|
-      create(:task, column => DateTime.now - n)
+      create(:task, column => (DateTime.now - n))
     }
-    visit tasks_path
   end
 
   # 測試資料 ASC 與 DESC 排列順序
   def check_page_order(column, order)
+    visit tasks_path
+    button = button_choose(column,order)
+    click_on I18n.t(button)
+    case button
+    when 'created_ASC'
+      expect(first('.card').find('.created_at')).to have_text((DateTime.now - 1).to_s(:taskdate))
+
+      expect(first('.card').find('.created_at')).to have_text(Task.order_by(column, order).first[column].to_s(:taskdate))
+
+    when 'created_DESC'
+      expect(first('.card').find('.created_at div')).to have_text((DateTime.now).to_s(:taskdate))
+
+      expect(first('.card').find('.created_at div')).to have_text(Task.order_by(column, order).first[column].to_s(:taskdate))
+    end
+
+  end
+
+  def button_choose(column,order)
     case column
     when 'created_at'
-      button = I18n.t('created_sort')
-      button = (order = 'ASC') ? button += '+' : button += '-'
+        button = (order == 'ASC') ? 'created_ASC' : 'created_DESC'
     end
     # 後續有其他欄位的排序，再補上 case
-
-    visit tasks_path
-    click_on button
-    expect(Task.order_by(column, 'ASC').first[column].to_s(:taskdate)).to eq((DateTime.now - 2).to_s(:taskdate))
-    expect(Task.order_by(column, 'ASC').last[column].to_s(:taskdate)).to eq((DateTime.now).to_s(:taskdate))
-    expect(Task.order_by(column, 'DESC').first[column].to_s(:taskdate)).to eq((DateTime.now).to_s(:taskdate))
-    expect(Task.order_by(column, 'DESC').last[column].to_s(:taskdate)).to eq((DateTime.now - 2).to_s(:taskdate))
+    button
   end
 
 end

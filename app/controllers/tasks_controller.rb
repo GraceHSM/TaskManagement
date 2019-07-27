@@ -1,10 +1,12 @@
 class TasksController < ApplicationController
   before_action :task_find, :only => [:edit, :update, :destroy]
+  before_action :sort, :only => [:index]
 
   def index
-   @tasks = Task.order('id ASC')
-   # 日後加上分頁功能再將all改掉
+  # binding.pry
+  # 日後加上分頁功能再將all改掉
   end
+
 
   def new
     @task = Task.new
@@ -35,15 +37,14 @@ class TasksController < ApplicationController
     redirect_to root_path, notice: t('delete_success')
   end
 
+  private
 
   def sort
-    col = params[:col]
-    order = params[:order]
-    @tasks = Task.order_by(col,order)
-    render :index
+    col = params[:col] || 'created_at'
+    order = params[:order] || 'ASC'
+    @tasks = Task.order_by(col, order)
   end
 
-  private
   def task_params
     params.require(:task).permit(:title, :content, :priority, :status, :start_at, :deadline_at)
   end
