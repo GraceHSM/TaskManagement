@@ -1,3 +1,9 @@
+before_install:
+- export TZ=Asia/Taipei
+
+cache:
+  bundle
+
 services:
   - postgresql
 

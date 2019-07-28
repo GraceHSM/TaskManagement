@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe Task, :type => :feature do
   let(:task){ build :task }
 
+  # task 列表
   it "Display tasks" do
     3.times{
       create_task
@@ -12,12 +13,29 @@ RSpec.describe Task, :type => :feature do
     expect(page).to have_text(Task.third.title)
   end
 
+  # 依 task 建立日期 created_at 排序
+  describe "Display tasks order by created_at" do
+    it "ASC" do
+      create_task_date('created_at', 2)
+      click_on I18n.t('created_at_asc')
+      check_page_sorted('created_at_asc')
+    end
+
+    it "DESC" do
+      create_task_date('created_at', 2)
+      click_on I18n.t('created_at_desc')
+      check_page_sorted('created_at_desc')
+    end
+  end
+
+  # 新增 task 流程
   it "Create a new task" do
     visit new_task_path
     new_task(task)
     check_page(task, I18n.t('create_success'))
   end
 
+  # 修改 task 流程
   it "Edit a task" do
     old_task = create_task
     visit edit_task_path(old_task.id)
@@ -25,6 +43,7 @@ RSpec.describe Task, :type => :feature do
     check_page(task, I18n.t('edit_success'))
   end
 
+  # 刪除 task 流程
   it "Destroy a task" do
     task = create_task
     visit tasks_path
@@ -32,6 +51,7 @@ RSpec.describe Task, :type => :feature do
   end
 
   private
+  # 新增 task 欄位
   def new_task(task)
     fill_in "task_title", :with => task.title
     fill_in "task_content", :with => task.content
@@ -43,6 +63,7 @@ RSpec.describe Task, :type => :feature do
     task.save
   end
 
+  # 編輯並更新 task 欄位
   def edit_task(old_task, task)
     fill_in "task_title", :with => task.title
     fill_in "task_content", :with => task.content
@@ -54,10 +75,12 @@ RSpec.describe Task, :type => :feature do
     task.update(title: task.title, content: task.content, start_at: task.start_at, deadline_at: task.deadline_at, priority: task.priority, status: task.status)
   end
 
+  # 產生 task 假資料
   def create_task
     create :task
   end
 
+  # 測試 task 欄位的新增/編輯之後，應出現的資訊
   def check_page(task, message)
     expect(page).to have_content(message)
     expect(page).to have_content(task.title)
@@ -66,5 +89,30 @@ RSpec.describe Task, :type => :feature do
     expect(page).to have_content(task.deadline_at.to_s(:taskdate))
     expect(page).to have_content(task.priority)
     expect(page).to have_content(task.status)
+  end
+
+  # 測試日期欄位排序，產生不同日期順序的資料
+  def create_task_date(col, num)
+    column = col.to_sym
+    num.times{ |n|
+      create(:task, column => (DateTime.now - n))
+    }
+    visit tasks_path
+  end
+
+  # 測試資料 ASC 與 DESC 排列順序
+  def check_page_sorted(button)
+    case button
+    when 'created_at_asc'
+      expect(first('.card').find('.created_at')).to have_text((DateTime.now - 1).to_s(:taskdate))
+
+      expect(first('.card').find('.created_at')).to have_text(Task.sorted_by(button).first['created_at'].to_s(:taskdate))
+
+    when 'created_at_desc'
+      expect(first('.card').find('.created_at div')).to have_text((DateTime.now).to_s(:taskdate))
+
+      expect(first('.card').find('.created_at div')).to have_text(Task.sorted_by(button).first['created_at'].to_s(:taskdate))
+    end
+
   end
 end

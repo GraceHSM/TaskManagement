@@ -2,9 +2,9 @@ class TasksController < ApplicationController
   before_action :task_find, :only => [:edit, :update, :destroy]
 
   def index
-   @tasks = Task.all
-   # 日後加上分頁功能再將all改掉
+    sort
   end
+
 
   def new
     @task = Task.new
@@ -36,6 +36,11 @@ class TasksController < ApplicationController
   end
 
   private
+
+  def sort
+    @tasks = Task.sorted_by(params[:sort])
+  end
+
   def task_params
     params.require(:task).permit(:title, :content, :priority, :status, :start_at, :deadline_at)
   end
