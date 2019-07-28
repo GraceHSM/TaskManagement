@@ -11,6 +11,9 @@ module TaskManagement
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+    config.i18n.default_locale = "zh-TW"
+
     config.time_zone = "Taipei"
     # Time::DATE_FORMATS[:taskdate] = "%F %H:%M"
     Time::DATE_FORMATS[:taskdate] = "%F"
