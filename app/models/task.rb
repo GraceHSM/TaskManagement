@@ -3,8 +3,7 @@ class Task < ApplicationRecord
   # belongs_to :user
   # validates :user, presence: true
 
-  # validates :title, :content, :start_at, :deadline_at, :priority, :status, presence: true
-  validates :start_at, :deadline_at, presence: true
+  validates :title, :content, :start_at, :deadline_at,  :priority, :status, presence: true
   validate :start_at_cannot_greater_than_deadline
 
   has_many :task_tags
