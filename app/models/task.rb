@@ -17,6 +17,8 @@ class Task < ApplicationRecord
     case sort_option.to_s
     when /^created_at_/
       order("created_at #{direction}")
+    when /^start_at_/
+      order("start_at #{direction}")
     when /^deadline_at_/
       order("deadline_at #{direction}")
     end
