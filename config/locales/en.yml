@@ -15,8 +15,9 @@ en:
   edit_success: 'Edit Task Success'
   delete_success: 'Delete Task Success'
   submit: 'Submit'
-  created_ASC: 'Create_at +'
-  created_DESC: 'Create_at -'
+  created_at: 'Create at'
+  created_at_asc: 'Create_at +'
+  created_at_desc: 'Create_at -'
 
   activerecord:
     models:

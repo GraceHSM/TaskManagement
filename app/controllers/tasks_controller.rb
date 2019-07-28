@@ -1,10 +1,8 @@
 class TasksController < ApplicationController
   before_action :task_find, :only => [:edit, :update, :destroy]
-  before_action :sort, :only => [:index]
 
   def index
-  # binding.pry
-  # 日後加上分頁功能再將all改掉
+    sort
   end
 
 
@@ -40,9 +38,7 @@ class TasksController < ApplicationController
   private
 
   def sort
-    col = params[:col] || 'created_at'
-    order = params[:order] || 'ASC'
-    @tasks = Task.order_by(col, order)
+    @tasks = Task.sorted_by(params[:sort])
   end
 
   def task_params

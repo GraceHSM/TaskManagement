@@ -6,10 +6,12 @@ class Task < ApplicationRecord
   enum status: [:pending, :processing, :completed]
   enum priority: [:primary, :secondly, :common]
 
-  # scope :order_by, -> (column, order){ order("#{ column } #{ order }") }
-
-  def self.order_by(column, order)
-    order("#{ column } #{ order }")
-  end
+  scope :sorted_by, ->(sort_option) {
+    direction = /desc$/.match?(sort_option) ? "desc" : "asc"
+    case sort_option.to_s
+    when /^created_at_/
+      order("created_at #{direction}")
+    end
+  }
 
 end

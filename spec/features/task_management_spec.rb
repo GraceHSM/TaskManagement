@@ -17,12 +17,14 @@ RSpec.describe Task, :type => :feature do
   describe "Display tasks order by created_at" do
     it "ASC" do
       create_task_date('created_at', 2)
-      check_page_order('created_at', 'ASC')
+      click_on I18n.t('created_at_asc')
+      check_page_sorted('created_at_asc')
     end
 
     it "DESC" do
       create_task_date('created_at', 2)
-      check_page_order('created_at', 'DESC')
+      click_on I18n.t('created_at_desc')
+      check_page_sorted('created_at_desc')
     end
   end
 
@@ -95,34 +97,22 @@ RSpec.describe Task, :type => :feature do
     num.times{ |n|
       create(:task, column => (DateTime.now - n))
     }
+    visit tasks_path
   end
 
   # 測試資料 ASC 與 DESC 排列順序
-  def check_page_order(column, order)
-    visit tasks_path
-    button = button_choose(column,order)
-    click_on I18n.t(button)
+  def check_page_sorted(button)
     case button
-    when 'created_ASC'
+    when 'created_at_asc'
       expect(first('.card').find('.created_at')).to have_text((DateTime.now - 1).to_s(:taskdate))
 
-      expect(first('.card').find('.created_at')).to have_text(Task.order_by(column, order).first[column].to_s(:taskdate))
+      expect(first('.card').find('.created_at')).to have_text(Task.sorted_by(button).first['created_at'].to_s(:taskdate))
 
-    when 'created_DESC'
+    when 'created_at_desc'
       expect(first('.card').find('.created_at div')).to have_text((DateTime.now).to_s(:taskdate))
 
-      expect(first('.card').find('.created_at div')).to have_text(Task.order_by(column, order).first[column].to_s(:taskdate))
+      expect(first('.card').find('.created_at div')).to have_text(Task.sorted_by(button).first['created_at'].to_s(:taskdate))
     end
 
   end
-
-  def button_choose(column,order)
-    case column
-    when 'created_at'
-        button = (order == 'ASC') ? 'created_ASC' : 'created_DESC'
-    end
-    # 後續有其他欄位的排序，再補上 case
-    button
-  end
-
 end
