@@ -19,6 +19,8 @@
   created_at_asc: '建立日期 +'
   created_at_desc: '建立日期 -'
 
+  start_at_cannot_greater_than_deadline: '開始日期不能在截止日期之後'
+
   activerecord:
     models:
       user: Task

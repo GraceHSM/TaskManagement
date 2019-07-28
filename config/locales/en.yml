@@ -19,6 +19,8 @@ en:
   created_at_asc: 'Create_at +'
   created_at_desc: 'Create_at -'
 
+  start_at_cannot_greater_than_deadline: "start date can't greater than deadline"
+
   activerecord:
     models:
       user: Task
