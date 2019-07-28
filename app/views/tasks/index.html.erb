@@ -2,6 +2,8 @@
 <div><%= link_to t('new_task'), new_task_path %></div>
 <div><%= link_to t('created_at_asc'), sort: 'created_at_asc' %></div>
 <div><%= link_to t('created_at_desc'), sort: 'created_at_desc' %></div>
+<div><%= link_to t('start_at_asc'), sort: 'start_at_asc' %></div>
+<div><%= link_to t('start_at_desc'), sort: 'start_at_desc' %></div>
 <div><%= link_to t('deadline_at_asc'), sort: 'deadline_at_asc' %></div>
 <div><%= link_to t('deadline_at_desc'), sort: 'deadline_at_desc' %></div>
 <div class="lists">
@@ -32,12 +34,12 @@
         <div><%= task.status %></div>
       </section>
 
-      <section>
+      <section class="start_at">
         <h2><%= t('start_at') %></h2>
         <div><%= task.start_at.to_s(:taskdate) %></div>
       </section>
 
-      <section>
+      <section class="deadline_at">
         <h2><%= t('deadline_at') %></h2>
         <div><%= task.deadline_at.to_s(:taskdate) %></div>
       </section>
