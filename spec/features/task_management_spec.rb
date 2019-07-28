@@ -34,6 +34,21 @@ RSpec.describe Task, :type => :feature do
     end
   end
 
+  # 依 task 結束日期 deadline_at 排序
+  describe "Display tasks order by deadline_at" do
+    it "ASC" do
+      create_task_date('deadline_at', 2)
+      click_on I18n.t('deadline_at_asc')
+      check_page_sorted('deadline_at_asc')
+    end
+
+    it "DESC" do
+      create_task_date('deadline_at', 2)
+      click_on I18n.t('deadline_at_desc')
+      check_page_sorted('deadline_at_desc')
+    end
+  end
+
   # 新增 task 流程
   it "Fill in a new task" do
     fill_in_new_task('all')

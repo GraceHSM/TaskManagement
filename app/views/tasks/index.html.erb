@@ -2,6 +2,8 @@
 <div><%= link_to t('new_task'), new_task_path %></div>
 <div><%= link_to t('created_at_asc'), sort: 'created_at_asc' %></div>
 <div><%= link_to t('created_at_desc'), sort: 'created_at_desc' %></div>
+<div><%= link_to t('deadline_at_asc'), sort: 'deadline_at_asc' %></div>
+<div><%= link_to t('deadline_at_desc'), sort: 'deadline_at_desc' %></div>
 <div class="lists">
   <section class="task_cards">
   <% @tasks.each do |task| %>
