@@ -35,12 +35,57 @@ RSpec.describe Task, :type => :feature do
     check_page(task, I18n.t('create_success'))
   end
 
+  # 新增 task 欄位驗證
+  describe "Validate create new task" do
+    it "validate title column" do
+      visit new_task_path
+      new_valid_task(task,'title')
+      expect(page).to have_content(I18n.t('must_be_presence'))
+    end
+
+    it "validate content column" do
+      visit new_task_path
+      new_valid_task(task,'content')
+      expect(page).to have_content(I18n.t('must_be_presence'))
+    end
+
+    it "validate start_at column" do
+      visit new_task_path
+      new_valid_task(task,'start_at')
+      expect(page).to have_content(I18n.t('must_be_choose_date'))
+    end
+
+    it "validate deadline_at column" do
+      visit new_task_path
+      new_valid_task(task,'deadline_at')
+      expect(page).to have_content(I18n.t('must_be_choose_date'))
+    end
+
+    it "validate priority column" do
+      visit new_task_path
+      new_valid_task(task,'priority')
+      expect(page).to have_content(I18n.t('must_be_choose_option'))
+    end
+
+    it "validate status column" do
+      visit new_task_path
+      new_valid_task(task,'priority')
+      expect(page).to have_content(I18n.t('must_be_choose_option'))
+    end
+
+    it "validate start_at_cannot_greater_than_deadline" do
+      visit new_task_path
+      new_valid_task(task,'date_valid')
+      expect(page).to have_content(I18n.t('start_at_cannot_greater_than_deadline'))
+    end
+  end
+
   # 修改 task 流程
   it "Edit a task" do
     old_task = create_task
     visit edit_task_path(old_task.id)
     edit_task(old_task, task)
-    check_page(task, I18n.t('edit_success'))
+    check_page(old_task, I18n.t('edit_success'))
   end
 
   # 刪除 task 流程
@@ -52,15 +97,52 @@ RSpec.describe Task, :type => :feature do
 
   private
   # 新增 task 欄位
-  def new_task(task)
+  def new_task_column(task)
     fill_in "task_title", :with => task.title
     fill_in "task_content", :with => task.content
     fill_in "task_start_at", :with => task.start_at
     fill_in "task_deadline_at", :with => task.deadline_at
+  end
+
+  # 新增 task
+  def new_task(task)
+    new_task_column(task)
     choose ('task_priority_' + task.priority)
     choose ('task_status_' + task.status)
     click_button I18n.t('submit')
     task.save
+  end
+
+  def new_valid_task(task,column)
+    new_task_column(task)
+    case column
+    when 'title'
+      fill_in "task_title", :with => ''
+      choose ('task_priority_' + task.priority)
+      choose ('task_status_' + task.status)
+    when 'content'
+      fill_in "task_content", :with => ''
+      choose ('task_priority_' + task.priority)
+      choose ('task_status_' + task.status)
+    when 'start_at'
+      fill_in "task_start_at", :with => ''
+      choose ('task_priority_' + task.priority)
+      choose ('task_status_' + task.status)
+    when 'deadline_at'
+      fill_in "task_deadline_at", :with => ''
+      choose ('task_priority_' + task.priority)
+      choose ('task_status_' + task.status)
+    when 'priority'
+      choose ('task_status_' + task.status)
+    when 'status'
+      choose ('task_priority_' + task.priority)
+    when 'date_valid'
+      fill_in "task_start_at", :with => DateTime.now + 1
+      fill_in "task_deadline_at", :with => DateTime.now
+      choose ('task_priority_' + task.priority)
+      choose ('task_status_' + task.status)
+    end
+    click_button I18n.t('submit')
   end
 
   # 編輯並更新 task 欄位
@@ -72,7 +154,7 @@ RSpec.describe Task, :type => :feature do
     choose ('task_priority_' + task.priority)
     choose ('task_status_' + task.status)
     click_button I18n.t('submit')
-    task.update(title: task.title, content: task.content, start_at: task.start_at, deadline_at: task.deadline_at, priority: task.priority, status: task.status)
+    old_task.update(title: task.title, content: task.content, start_at: task.start_at, deadline_at: task.deadline_at, priority: task.priority, status: task.status)
   end
 
   # 產生 task 假資料
