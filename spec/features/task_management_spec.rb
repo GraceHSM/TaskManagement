@@ -34,6 +34,21 @@ RSpec.describe Task, :type => :feature do
     end
   end
 
+  # 依 task 結束日期 start_at 排序
+  describe "Display tasks order by start_at" do
+    it "ASC" do
+      create_task_date('start_at', 2)
+      click_on I18n.t('start_at_asc')
+      check_page_sorted('start_at_asc')
+    end
+
+    it "DESC" do
+      create_task_date('start_at', 2)
+      click_on I18n.t('start_at_desc')
+      check_page_sorted('start_at_desc')
+    end
+  end
+
   # 依 task 結束日期 deadline_at 排序
   describe "Display tasks order by deadline_at" do
     it "ASC" do
@@ -216,7 +231,26 @@ RSpec.describe Task, :type => :feature do
       expect(first('.card').find('.created_at')).to have_text((DateTime.now).to_s(:taskdate))
 
       expect(first('.card').find('.created_at')).to have_text(Task.sorted_by(button).first['created_at'].to_s(:taskdate))
-    end
 
+    when 'start_at_asc'
+      expect(first('.card').find('.start_at')).to have_text((DateTime.now - 1).to_s(:taskdate))
+
+      expect(first('.card').find('.start_at')).to have_text(Task.sorted_by(button).first['start_at'].to_s(:taskdate))
+
+    when 'start_at_desc'
+      expect(first('.card').find('.start_at')).to have_text((DateTime.now).to_s(:taskdate))
+
+      expect(first('.card').find('.start_at')).to have_text(Task.sorted_by(button).first['start_at'].to_s(:taskdate))
+
+    when 'deadline_at_asc'
+      expect(first('.card').find('.deadline_at')).to have_text((DateTime.now - 1).to_s(:taskdate))
+
+      expect(first('.card').find('.deadline_at')).to have_text(Task.sorted_by(button).first['deadline_at'].to_s(:taskdate))
+
+    when 'deadline_at_desc'
+      expect(first('.card').find('.deadline_at')).to have_text((DateTime.now).to_s(:taskdate))
+
+      expect(first('.card').find('.deadline_at')).to have_text(Task.sorted_by(button).first['deadline_at'].to_s(:taskdate))
+    end
   end
 end

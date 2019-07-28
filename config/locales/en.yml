@@ -18,6 +18,8 @@ en:
   created_at: 'Create at'
   created_at_asc: 'Create at +'
   created_at_desc: 'Create at -'
+  start_at_asc: 'Start at +'
+  start_at_desc: 'Start at -'
   deadline_at_asc: 'Deadline at +'
   deadline_at_desc: 'Deadline at -'
   must_be_presence: 'must be presence'
