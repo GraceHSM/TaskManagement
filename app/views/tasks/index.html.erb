@@ -1,56 +1,32 @@
 <h2><%= t('TaskLists') %></h2>
 <div><%= link_to t('new_task'), new_task_path %></div>
-<div><%= link_to t('created_at_asc'), sort: 'created_at_asc' %></div>
-<div><%= link_to t('created_at_desc'), sort: 'created_at_desc' %></div>
-<div><%= link_to t('start_at_asc'), sort: 'start_at_asc' %></div>
-<div><%= link_to t('start_at_desc'), sort: 'start_at_desc' %></div>
-<div><%= link_to t('deadline_at_asc'), sort: 'deadline_at_asc' %></div>
-<div><%= link_to t('deadline_at_desc'), sort: 'deadline_at_desc' %></div>
-<div class="lists">
-  <section class="task_cards">
-  <% @tasks.each do |task| %>
-    <article class="card">
-      <section class="created_at">
-        <h2><%= t('created_at') %></h2>
-        <div><%= task.created_at.to_s(:taskdate) %></div>
-      </section>
-      <section class="title">
-        <h2><%= t('title') %></h2>
-        <div><%= task.title %></div>
-      </section>
-
-      <section class="content">
-        <h2><%= t('content') %></h2>
-        <div><%= task.content %></div>
-      </section>
-
-      <section class="priority">
-        <h2><%= t('priority') %></h2>
-        <div><%= task.priority %></div>
-      </section>
-
-      <section class="status">
-        <h2><%= t('status') %></h2>
-        <div><%= task.status %></div>
-      </section>
-
-      <section class="start_at">
-        <h2><%= t('start_at') %></h2>
-        <div><%= task.start_at.to_s(:taskdate) %></div>
-      </section>
-
-      <section class="deadline_at">
-        <h2><%= t('deadline_at') %></h2>
-        <div><%= task.deadline_at.to_s(:taskdate) %></div>
-      </section>
-
-      <section class="options">
-        <ul>
-          <li><%= link_to t('edit'), edit_task_path(task) %></li>
-          <li><%= link_to t('delete'), task_path(task), method: 'DELETE' %></li>
-        </ul>
-      </section>
-    </article>
-    <% end %>
-  </section>
-</div>
+<section class="container">
+  <table class='table'>
+    <thead>
+      <tr>
+        <th><%= t('priority') %></th>
+        <th><%= t('created_at') %><%= link_to t('created_at_asc'), sort: 'created_at_asc' %><%= link_to t('created_at_desc'), sort: 'created_at_desc' %></th>
+        <th><%= t('title') %></th>
+        <th><%= t('content') %></th>
+        <th><%= t('start_at') %><%= link_to t('start_at_asc'), sort: 'start_at_asc' %><%= link_to t('start_at_desc'), sort: 'start_at_desc' %></th>
+        <th><%= t('deadline_at') %><%= link_to t('deadline_at_asc'), sort: 'deadline_at_asc' %><%= link_to t('deadline_at_desc'), sort: 'deadline_at_desc' %></th>
+        <th><%= t('status') %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+      <tr class='list'>
+        <td class='priority'><%= task.priority %></td>
+        <td class='created_at'><%= task.created_at.to_s(:taskdate) %></td>
+        <td class='title'><%= task.title %></td>
+        <td class='content'><%= task.content %></td>
+        <td class='start_at'><%= task.start_at.to_s(:taskdate) %></td>
+        <td class='deadline_at'><%= task.deadline_at.to_s(:taskdate) %></td>
+        <td class='status'><%= task.status %></td>
+        <td><%= link_to t('edit'), edit_task_path(task) %><%= link_to t('delete'), task_path(task), method: 'DELETE' %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>
