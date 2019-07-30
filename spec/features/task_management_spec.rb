@@ -37,13 +37,13 @@ RSpec.describe Task, :type => :feature do
   # 依 task 結束日期 start_at 排序
   describe "Display tasks order by start_at" do
     it "ASC" do
-      create_task_date('start_at', 2)
+      create_sorted_date('start_at')
       click_on I18n.t('start_at_asc')
       check_page_sorted('start_at_asc')
     end
 
     it "DESC" do
-      create_task_date('start_at', 2)
+      create_sorted_date('start_at')
       click_on I18n.t('start_at_desc')
       check_page_sorted('start_at_desc')
     end
@@ -52,13 +52,13 @@ RSpec.describe Task, :type => :feature do
   # 依 task 結束日期 deadline_at 排序
   describe "Display tasks order by deadline_at" do
     it "ASC" do
-      create_task_date('deadline_at', 2)
+      create_sorted_date('deadline_at')
       click_on I18n.t('deadline_at_asc')
       check_page_sorted('deadline_at_asc')
     end
 
     it "DESC" do
-      create_task_date('deadline_at', 2)
+      create_sorted_date('deadline_at')
       click_on I18n.t('deadline_at_desc')
       check_page_sorted('deadline_at_desc')
     end
