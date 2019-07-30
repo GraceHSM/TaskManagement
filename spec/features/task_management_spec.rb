@@ -34,7 +34,7 @@ RSpec.describe Task, :type => :feature do
     end
   end
 
-  # 依 task 結束日期 start_at 排序
+  # 依 task 開始日期 start_at 排序
   describe "Display tasks order by start_at" do
     it "ASC" do
       create_sorted_date('start_at')
