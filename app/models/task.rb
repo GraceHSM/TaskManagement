@@ -1,6 +1,12 @@
 class Task < ApplicationRecord
-  # belongs_to :user
   # 建立使用者之後再使用belongs_to
+  # belongs_to :user
+  # validates :user, presence: true
+  validates :title, :content, presence: { message: I18n.t('must_be_presence') }
+  validates :start_at, :deadline_at, presence: { message: I18n.t('must_be_choose_date') }
+  validates :priority, :status, presence: { message: I18n.t('must_be_choose_option') }
+  validate :start_at_cannot_greater_than_deadline
+
   has_many :task_tags
   has_many :tags, through: :task_tags
   enum status: [:pending, :processing, :completed]
@@ -13,5 +19,14 @@ class Task < ApplicationRecord
       order("created_at #{direction}")
     end
   }
+
+  private
+  def start_at_cannot_greater_than_deadline
+    unless start_at == nil || deadline_at == nil
+      if start_at > deadline_at
+        errors.add(:start_at, I18n.t('start_at_cannot_greater_than_deadline'))
+      end
+    end
+  end
 
 end

@@ -19,6 +19,11 @@ en:
   created_at_asc: 'Create_at +'
   created_at_desc: 'Create_at -'
 
+  must_be_presence: 'must be presence'
+  must_be_choose_date: 'must be choose date'
+  must_be_choose_option: 'must be choose option'
+  start_at_cannot_greater_than_deadline: "start date can't greater than deadline"
+
   activerecord:
     models:
       user: Task
