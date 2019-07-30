@@ -20,22 +20,22 @@
         <div><%= task.content %></div>
       </section>
 
-      <section>
+      <section class="priority">
         <h2><%= t('priority') %></h2>
         <div><%= task.priority %></div>
       </section>
 
-      <section>
+      <section class="status">
         <h2><%= t('status') %></h2>
         <div><%= task.status %></div>
       </section>
 
-      <section>
+      <section class="start_at">
         <h2><%= t('start_at') %></h2>
         <div><%= task.start_at.to_s(:taskdate) %></div>
       </section>
 
-      <section>
+      <section class="deadline_at">
         <h2><%= t('deadline_at') %></h2>
         <div><%= task.deadline_at.to_s(:taskdate) %></div>
       </section>

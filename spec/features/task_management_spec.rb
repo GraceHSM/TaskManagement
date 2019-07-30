@@ -1,12 +1,18 @@
 require "rails_helper"
 
 RSpec.describe Task, :type => :feature do
-  let(:task){ build :task }
+  let(:task){ create(:task) }
+  let(:title) { Faker::Lorem.sentence }
+  let(:content) { Faker::Lorem.paragraph }
+  let(:start_at) { DateTime.now - 1 }
+  let(:deadline_at) { DateTime.now + 1 }
+  let(:priority) { ['primary', 'secondly', 'common'].sample }
+  let(:status) { ['pending', 'processing', 'completed'].sample }
 
   # task 列表
   it "Display tasks" do
     3.times{
-      create_task
+      create(:task)
     }
     expect(Task.count).to be 3
     visit tasks_path
@@ -16,167 +22,168 @@ RSpec.describe Task, :type => :feature do
   # 依 task 建立日期 created_at 排序
   describe "Display tasks order by created_at" do
     it "ASC" do
-      create_task_date('created_at', 2)
+      create_sorted_date('created_at')
       click_on I18n.t('created_at_asc')
       check_page_sorted('created_at_asc')
     end
 
     it "DESC" do
-      create_task_date('created_at', 2)
+      create_sorted_date('created_at')
       click_on I18n.t('created_at_desc')
       check_page_sorted('created_at_desc')
     end
   end
 
   # 新增 task 流程
-  it "Create a new task" do
-    visit new_task_path
-    new_task(task)
-    check_page(task, I18n.t('create_success'))
+  it "Fill in a new task" do
+    fill_in_new_task('all')
+    check_page(I18n.t('create_success'))
   end
 
   # 新增 task 欄位驗證
-  describe "Validate create new task" do
-    it "validate title column" do
-      visit new_task_path
-      new_valid_task(task,'title')
+  describe "Validate fill in new task" do
+    it "validate title must be presence" do
+      fill_in_new_task('without_title')
       expect(page).to have_content(I18n.t('must_be_presence'))
     end
 
-    it "validate content column" do
-      visit new_task_path
-      new_valid_task(task,'content')
+    it "validate content must be presence" do
+      fill_in_new_task('without_content')
       expect(page).to have_content(I18n.t('must_be_presence'))
     end
 
-    it "validate start_at column" do
-      visit new_task_path
-      new_valid_task(task,'start_at')
-      expect(page).to have_content(I18n.t('must_be_choose_date'))
+    it "validate start_at default value" do
+      fill_in_new_task('default_start_at')
+      expect(page).to have_content(I18n.t('create_success'))
+      expect(find('.start_at')).to have_content(DateTime.now.to_s(:taskdate))
     end
 
-    it "validate deadline_at column" do
-      visit new_task_path
-      new_valid_task(task,'deadline_at')
-      expect(page).to have_content(I18n.t('must_be_choose_date'))
+    it "validate deadline_at default value" do
+      fill_in_new_task('default_deadline_at')
+      expect(page).to have_content(I18n.t('create_success'))
+      expect(find('.deadline_at')).to have_content(DateTime.now.to_s(:taskdate))
     end
 
-    it "validate priority column" do
-      visit new_task_path
-      new_valid_task(task,'priority')
-      expect(page).to have_content(I18n.t('must_be_choose_option'))
+    it "validate priority default value" do
+      fill_in_new_task('default_priority')
+      expect(page).to have_content(I18n.t('create_success'))
+      expect(find('.priority')).to have_content('common')
     end
 
-    it "validate status column" do
-      visit new_task_path
-      new_valid_task(task,'priority')
-      expect(page).to have_content(I18n.t('must_be_choose_option'))
+    it "validate status default value" do
+      fill_in_new_task('default_status')
+      expect(page).to have_content(I18n.t('create_success'))
+      expect(find('.status')).to have_content('pending')
     end
 
     it "validate start_at_cannot_greater_than_deadline" do
-      visit new_task_path
-      new_valid_task(task,'date_valid')
+      fill_in_new_task('start_greater_than_deadline')
       expect(page).to have_content(I18n.t('start_at_cannot_greater_than_deadline'))
     end
   end
 
   # 修改 task 流程
   it "Edit a task" do
-    old_task = create_task
+    old_task = task
     visit edit_task_path(old_task.id)
-    edit_task(old_task, task)
-    check_page(old_task, I18n.t('edit_success'))
+    edit_task(old_task)
+    check_page(I18n.t('edit_success'))
   end
 
   # 刪除 task 流程
   it "Destroy a task" do
-    task = create_task
+    task
     visit tasks_path
     expect{ click_on I18n.t('delete') }.to change{ Task.count }.by(-1)
   end
 
   private
-  # 新增 task 欄位
-  def new_task_column(task)
-    fill_in "task_title", :with => task.title
-    fill_in "task_content", :with => task.content
-    fill_in "task_start_at", :with => task.start_at
-    fill_in "task_deadline_at", :with => task.deadline_at
-  end
-
-  # 新增 task
-  def new_task(task)
-    new_task_column(task)
-    choose ('task_priority_' + task.priority)
-    choose ('task_status_' + task.status)
+  # Fill in new task
+  def fill_in_new_task(condition)
+    visit new_task_path
+    case condition
+    when 'all'
+      fill_in 'task_title', :with => title
+      fill_in 'task_content', :with => content
+      fill_in 'task_start_at', :with => start_at
+      fill_in 'task_deadline_at', :with => deadline_at
+      choose ('task_priority_' + priority)
+      choose ('task_status_' + status)
+    when 'without_title'
+      fill_in 'task_content', :with => content
+      fill_in 'task_start_at', :with => start_at
+      fill_in 'task_deadline_at', :with => deadline_at
+      choose ('task_priority_' + priority)
+      choose ('task_status_' + status)
+    when 'without_content'
+      fill_in 'task_title', :with => title
+      fill_in 'task_start_at', :with => start_at
+      fill_in 'task_deadline_at', :with => deadline_at
+      choose ('task_priority_' + priority)
+      choose ('task_status_' + status)
+    when 'default_start_at'
+      fill_in 'task_title', :with => title
+      fill_in 'task_content', :with => content
+      fill_in 'task_deadline_at', :with => deadline_at
+      choose ('task_priority_' + priority)
+      choose ('task_status_' + status)
+    when 'default_deadline_at'
+      fill_in 'task_title', :with => title
+      fill_in 'task_content', :with => content
+      fill_in 'task_start_at', :with => start_at
+      choose ('task_priority_' + priority)
+      choose ('task_status_' + status)
+    when 'default_priority'
+      fill_in 'task_title', :with => title
+      fill_in 'task_content', :with => content
+      fill_in 'task_start_at', :with => start_at
+      fill_in 'task_deadline_at', :with => deadline_at
+      choose ('task_status_' + status)
+    when 'default_status'
+      fill_in 'task_title', :with => title
+      fill_in 'task_content', :with => content
+      fill_in 'task_start_at', :with => start_at
+      fill_in 'task_deadline_at', :with => deadline_at
+      choose ('task_priority_' + priority)
+    when 'start_greater_than_deadline'
+      fill_in 'task_title', :with => title
+      fill_in 'task_content', :with => content
+      fill_in 'task_start_at', :with => DateTime.now + 1
+      fill_in 'task_deadline_at', :with => DateTime.now - 1
+      choose ('task_priority_' + priority)
+      choose ('task_status_' + status)
+    end
     click_button I18n.t('submit')
     task.save
   end
 
-  def new_valid_task(task,column)
-    new_task_column(task)
-    case column
-    when 'title'
-      fill_in "task_title", :with => ''
-      choose ('task_priority_' + task.priority)
-      choose ('task_status_' + task.status)
-    when 'content'
-      fill_in "task_content", :with => ''
-      choose ('task_priority_' + task.priority)
-      choose ('task_status_' + task.status)
-    when 'start_at'
-      fill_in "task_start_at", :with => ''
-      choose ('task_priority_' + task.priority)
-      choose ('task_status_' + task.status)
-    when 'deadline_at'
-      fill_in "task_deadline_at", :with => ''
-      choose ('task_priority_' + task.priority)
-      choose ('task_status_' + task.status)
-    when 'priority'
-      choose ('task_status_' + task.status)
-    when 'status'
-      choose ('task_priority_' + task.priority)
-    when 'date_valid'
-      fill_in "task_start_at", :with => DateTime.now + 1
-      fill_in "task_deadline_at", :with => DateTime.now
-      choose ('task_priority_' + task.priority)
-      choose ('task_status_' + task.status)
-    end
-    click_button I18n.t('submit')
-  end
-
   # 編輯並更新 task 欄位
-  def edit_task(old_task, task)
-    fill_in "task_title", :with => task.title
-    fill_in "task_content", :with => task.content
-    fill_in "task_start_at", :with => task.start_at
-    fill_in "task_deadline_at", :with => task.deadline_at
-    choose ('task_priority_' + task.priority)
-    choose ('task_status_' + task.status)
+  def edit_task(old_task)
+    fill_in "task_title", :with => title
+    fill_in "task_content", :with => content
+    fill_in "task_start_at", :with => start_at
+    fill_in "task_deadline_at", :with => deadline_at
+    choose ('task_priority_' + priority)
+    choose ('task_status_' + status)
     click_button I18n.t('submit')
-    old_task.update(title: task.title, content: task.content, start_at: task.start_at, deadline_at: task.deadline_at, priority: task.priority, status: task.status)
-  end
-
-  # 產生 task 假資料
-  def create_task
-    create :task
+    old_task.update(title: title, content: content, start_at: start_at, deadline_at: deadline_at, priority: priority, status: status)
   end
 
   # 測試 task 欄位的新增/編輯之後，應出現的資訊
-  def check_page(task, message)
+  def check_page(message)
     expect(page).to have_content(message)
-    expect(page).to have_content(task.title)
-    expect(page).to have_content(task.content)
-    expect(page).to have_content(task.start_at.to_s(:taskdate))
-    expect(page).to have_content(task.deadline_at.to_s(:taskdate))
-    expect(page).to have_content(task.priority)
-    expect(page).to have_content(task.status)
+    expect(page).to have_content(title)
+    expect(page).to have_content(content)
+    expect(page).to have_content(start_at.to_s(:taskdate))
+    expect(page).to have_content(deadline_at.to_s(:taskdate))
+    expect(page).to have_content(priority)
+    expect(page).to have_content(status)
   end
 
-  # 測試日期欄位排序，產生不同日期順序的資料
-  def create_task_date(col, num)
+  # 產生不同日期順序的資料
+  def create_sorted_date(col)
     column = col.to_sym
-    num.times{ |n|
+    2.times{ |n|
       create(:task, column => (DateTime.now - n))
     }
     visit tasks_path
@@ -191,9 +198,9 @@ RSpec.describe Task, :type => :feature do
       expect(first('.card').find('.created_at')).to have_text(Task.sorted_by(button).first['created_at'].to_s(:taskdate))
 
     when 'created_at_desc'
-      expect(first('.card').find('.created_at div')).to have_text((DateTime.now).to_s(:taskdate))
+      expect(first('.card').find('.created_at')).to have_text((DateTime.now).to_s(:taskdate))
 
-      expect(first('.card').find('.created_at div')).to have_text(Task.sorted_by(button).first['created_at'].to_s(:taskdate))
+      expect(first('.card').find('.created_at')).to have_text(Task.sorted_by(button).first['created_at'].to_s(:taskdate))
     end
 
   end
