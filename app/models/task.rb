@@ -26,10 +26,9 @@ class Task < ApplicationRecord
 
   private
   def start_at_cannot_greater_than_deadline
-    unless start_at.nil? || deadline_at.nil?
-      if start_at > deadline_at
-        errors.add(:start_at, I18n.t('start_at_cannot_greater_than_deadline'))
-      end
+    return if start_at.nil? || deadline_at.nil?
+    if start_at > deadline_at
+      errors.add(:start_at, I18n.t('start_at_cannot_greater_than_deadline'))
     end
   end
 
