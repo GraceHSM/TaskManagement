@@ -17,15 +17,18 @@ class Task < ApplicationRecord
     case sort_option.to_s
     when /^created_at_/
       order("created_at #{direction}")
+    when /^start_at_/
+      order("start_at #{direction}")
+    when /^deadline_at_/
+      order("deadline_at #{direction}")
     end
   }
 
   private
   def start_at_cannot_greater_than_deadline
-    unless start_at == nil || deadline_at == nil
-      if start_at > deadline_at
-        errors.add(:start_at, I18n.t('start_at_cannot_greater_than_deadline'))
-      end
+    return if start_at.nil? || deadline_at.nil?
+    if start_at > deadline_at
+      errors.add(:start_at, I18n.t('start_at_cannot_greater_than_deadline'))
     end
   end
 

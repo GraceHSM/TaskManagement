@@ -34,50 +34,76 @@ RSpec.describe Task, :type => :feature do
     end
   end
 
+  # 依 task 開始日期 start_at 排序
+  describe "Display tasks order by start_at" do
+    it "ASC" do
+      create_sorted_date('start_at')
+      click_on I18n.t('start_at_asc')
+      check_page_sorted('start_at_asc')
+    end
+
+    it "DESC" do
+      create_sorted_date('start_at')
+      click_on I18n.t('start_at_desc')
+      check_page_sorted('start_at_desc')
+    end
+  end
+
+  # 依 task 結束日期 deadline_at 排序
+  describe "Display tasks order by deadline_at" do
+    it "ASC" do
+      create_sorted_date('deadline_at')
+      click_on I18n.t('deadline_at_asc')
+      check_page_sorted('deadline_at_asc')
+    end
+
+    it "DESC" do
+      create_sorted_date('deadline_at')
+      click_on I18n.t('deadline_at_desc')
+      check_page_sorted('deadline_at_desc')
+    end
+  end
+
   # 新增 task 流程
   it "Fill in a new task" do
-    fill_in_new_task('all')
+    fill_in_new_task
+    click_button I18n.t('submit')
     check_page(I18n.t('create_success'))
   end
 
   # 新增 task 欄位驗證
   describe "Validate fill in new task" do
+    before :each do
+      fill_in_new_task
+    end
     it "validate title must be presence" do
-      fill_in_new_task('without_title')
+      fill_in 'task_title', with: ''
+      click_button I18n.t('submit')
       expect(page).to have_content(I18n.t('must_be_presence'))
     end
 
     it "validate content must be presence" do
-      fill_in_new_task('without_content')
+      fill_in 'task_content', with: ''
+      click_button I18n.t('submit')
       expect(page).to have_content(I18n.t('must_be_presence'))
     end
 
-    it "validate start_at default value" do
-      fill_in_new_task('default_start_at')
-      expect(page).to have_content(I18n.t('create_success'))
-      expect(find('.start_at')).to have_content(DateTime.now.to_s(:taskdate))
+    it "validate start_at must be choose date" do
+      fill_in 'task_start_at', with: ''
+      click_button I18n.t('submit')
+      expect(page).to have_content(I18n.t('must_be_choose_date'))
     end
 
-    it "validate deadline_at default value" do
-      fill_in_new_task('default_deadline_at')
-      expect(page).to have_content(I18n.t('create_success'))
-      expect(find('.deadline_at')).to have_content(DateTime.now.to_s(:taskdate))
-    end
-
-    it "validate priority default value" do
-      fill_in_new_task('default_priority')
-      expect(page).to have_content(I18n.t('create_success'))
-      expect(find('.priority')).to have_content('common')
-    end
-
-    it "validate status default value" do
-      fill_in_new_task('default_status')
-      expect(page).to have_content(I18n.t('create_success'))
-      expect(find('.status')).to have_content('pending')
+    it "validate deadline_at must be choose date" do
+      fill_in 'task_deadline_at', with: ''
+      click_button I18n.t('submit')
+      expect(page).to have_content(I18n.t('must_be_choose_date'))
     end
 
     it "validate start_at_cannot_greater_than_deadline" do
-      fill_in_new_task('start_greater_than_deadline')
+      fill_in 'task_start_at', with: DateTime.now + 1
+      fill_in 'task_deadline_at', with: DateTime.now - 1
+      click_button I18n.t('submit')
       expect(page).to have_content(I18n.t('start_at_cannot_greater_than_deadline'))
     end
   end
@@ -99,70 +125,22 @@ RSpec.describe Task, :type => :feature do
 
   private
   # Fill in new task
-  def fill_in_new_task(condition)
+  def fill_in_new_task
     visit new_task_path
-    case condition
-    when 'all'
-      fill_in 'task_title', :with => title
-      fill_in 'task_content', :with => content
-      fill_in 'task_start_at', :with => start_at
-      fill_in 'task_deadline_at', :with => deadline_at
-      choose ('task_priority_' + priority)
-      choose ('task_status_' + status)
-    when 'without_title'
-      fill_in 'task_content', :with => content
-      fill_in 'task_start_at', :with => start_at
-      fill_in 'task_deadline_at', :with => deadline_at
-      choose ('task_priority_' + priority)
-      choose ('task_status_' + status)
-    when 'without_content'
-      fill_in 'task_title', :with => title
-      fill_in 'task_start_at', :with => start_at
-      fill_in 'task_deadline_at', :with => deadline_at
-      choose ('task_priority_' + priority)
-      choose ('task_status_' + status)
-    when 'default_start_at'
-      fill_in 'task_title', :with => title
-      fill_in 'task_content', :with => content
-      fill_in 'task_deadline_at', :with => deadline_at
-      choose ('task_priority_' + priority)
-      choose ('task_status_' + status)
-    when 'default_deadline_at'
-      fill_in 'task_title', :with => title
-      fill_in 'task_content', :with => content
-      fill_in 'task_start_at', :with => start_at
-      choose ('task_priority_' + priority)
-      choose ('task_status_' + status)
-    when 'default_priority'
-      fill_in 'task_title', :with => title
-      fill_in 'task_content', :with => content
-      fill_in 'task_start_at', :with => start_at
-      fill_in 'task_deadline_at', :with => deadline_at
-      choose ('task_status_' + status)
-    when 'default_status'
-      fill_in 'task_title', :with => title
-      fill_in 'task_content', :with => content
-      fill_in 'task_start_at', :with => start_at
-      fill_in 'task_deadline_at', :with => deadline_at
-      choose ('task_priority_' + priority)
-    when 'start_greater_than_deadline'
-      fill_in 'task_title', :with => title
-      fill_in 'task_content', :with => content
-      fill_in 'task_start_at', :with => DateTime.now + 1
-      fill_in 'task_deadline_at', :with => DateTime.now - 1
-      choose ('task_priority_' + priority)
-      choose ('task_status_' + status)
-    end
-    click_button I18n.t('submit')
-    task.save
+    fill_in 'task_title', with: title
+    fill_in 'task_content', with: content
+    fill_in 'task_start_at', with: start_at
+    fill_in 'task_deadline_at', with: deadline_at
+    choose ('task_priority_' + priority)
+    choose ('task_status_' + status)
   end
 
   # 編輯並更新 task 欄位
   def edit_task(old_task)
-    fill_in "task_title", :with => title
-    fill_in "task_content", :with => content
-    fill_in "task_start_at", :with => start_at
-    fill_in "task_deadline_at", :with => deadline_at
+    fill_in "task_title", with: title
+    fill_in "task_content", with: content
+    fill_in "task_start_at", with: start_at
+    fill_in "task_deadline_at", with: deadline_at
     choose ('task_priority_' + priority)
     choose ('task_status_' + status)
     click_button I18n.t('submit')
@@ -193,15 +171,34 @@ RSpec.describe Task, :type => :feature do
   def check_page_sorted(button)
     case button
     when 'created_at_asc'
-      expect(first('.card').find('.created_at')).to have_text((DateTime.now - 1).to_s(:taskdate))
+      expect(first('.list').find('.created_at')).to have_text((DateTime.now - 1).to_s(:taskdate))
 
-      expect(first('.card').find('.created_at')).to have_text(Task.sorted_by(button).first['created_at'].to_s(:taskdate))
+      expect(first('.list').find('.created_at')).to have_text(Task.sorted_by(button).first['created_at'].to_s(:taskdate))
 
     when 'created_at_desc'
-      expect(first('.card').find('.created_at')).to have_text((DateTime.now).to_s(:taskdate))
+      expect(first('.list').find('.created_at')).to have_text((DateTime.now).to_s(:taskdate))
 
-      expect(first('.card').find('.created_at')).to have_text(Task.sorted_by(button).first['created_at'].to_s(:taskdate))
+      expect(first('.list').find('.created_at')).to have_text(Task.sorted_by(button).first['created_at'].to_s(:taskdate))
+
+    when 'start_at_asc'
+      expect(first('.list').find('.start_at')).to have_text((DateTime.now - 1).to_s(:taskdate))
+
+      expect(first('.list').find('.start_at')).to have_text(Task.sorted_by(button).first['start_at'].to_s(:taskdate))
+
+    when 'start_at_desc'
+      expect(first('.list').find('.start_at')).to have_text((DateTime.now).to_s(:taskdate))
+
+      expect(first('.list').find('.start_at')).to have_text(Task.sorted_by(button).first['start_at'].to_s(:taskdate))
+
+    when 'deadline_at_asc'
+      expect(first('.list').find('.deadline_at')).to have_text((DateTime.now - 1).to_s(:taskdate))
+
+      expect(first('.list').find('.deadline_at')).to have_text(Task.sorted_by(button).first['deadline_at'].to_s(:taskdate))
+
+    when 'deadline_at_desc'
+      expect(first('.list').find('.deadline_at')).to have_text((DateTime.now).to_s(:taskdate))
+
+      expect(first('.list').find('.deadline_at')).to have_text(Task.sorted_by(button).first['deadline_at'].to_s(:taskdate))
     end
-
   end
 end
