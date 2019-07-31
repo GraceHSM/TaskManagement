@@ -42,6 +42,8 @@ gem 'rails-i18n', '~> 5.1', '>= 5.1.3'
 
 gem 'bootstrap', '~> 4.3', '>= 4.3.1'
 
+gem 'ransack', '~> 2.1', '>= 2.1.1'
+
 group :development, :test do
 
   gem 'rspec-rails', '~> 3.8', '>= 3.8.2'

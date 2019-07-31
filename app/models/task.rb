@@ -15,12 +15,16 @@ class Task < ApplicationRecord
   scope :sorted_by, ->(sort_option) {
     direction = /desc$/.match?(sort_option) ? "desc" : "asc"
     case sort_option.to_s
+    when ''
+      order("id #{direction}")
     when /^created_at_/
       order("created_at #{direction}")
     when /^start_at_/
       order("start_at #{direction}")
     when /^deadline_at_/
       order("deadline_at #{direction}")
+    when /^status/
+      order("status #{direction}")
     end
   }
 

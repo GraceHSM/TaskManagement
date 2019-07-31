@@ -22,6 +22,7 @@ en:
   start_at_desc: 'Start at -'
   deadline_at_asc: 'Deadline at +'
   deadline_at_desc: 'Deadline at -'
+  choose_status: 'ChooseStatus'
   must_be_presence: 'must be presence'
   must_be_choose_date: 'must be choose date'
   must_be_choose_option: 'must be choose option'

@@ -22,7 +22,7 @@
   start_at_desc: '開始日期 -'
   deadline_at_asc: '結束日期 +'
   deadline_at_desc: '結束日期 -'
-
+  choose_status: '選擇狀態'
   must_be_presence: '請輸入資料'
   must_be_choose_date: '請選擇日期'
   must_be_choose_option: '請選擇項目'
