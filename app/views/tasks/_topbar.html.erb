@@ -7,7 +7,7 @@
 </div>
 
 <%= form_tag(tasks_path, method: 'get', class: 'd-inline-block') do %>
-  <%= select_tag(:status, options_for_select([[User.human_attribute_name('pending'),'pending'], [User.human_attribute_name('processing'),'processing'], [User.human_attribute_name('completed'),'completed']]), include_blank: t('choose_status')) %>
+  <%= select_tag(:status, options_for_select([[User.human_attribute_name('pending'),'0'], [User.human_attribute_name('processing'),'1'], [User.human_attribute_name('completed'),'2']]), include_blank: t('choose_status')) %>
   <%= text_field_tag(:title, nil, placeholder: 'Search') %>
   <%= submit_tag("Search") %>
 <% end %>

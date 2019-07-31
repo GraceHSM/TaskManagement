@@ -38,7 +38,7 @@ class TasksController < ApplicationController
   private
 
   def sort
-    @q = Task.ransack(title_cont: params[:title], status: params[:status])
+    @q = Task.ransack(title_cont: params[:title], status_eq: params[:status])
     query = @q.result
     @tasks = query.sorted_by(params[:sort])
 
