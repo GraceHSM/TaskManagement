@@ -9,6 +9,7 @@
   deadline_at: '結束時間'
   edit: '編輯'
   delete: '刪除'
+  search: '搜尋'
   new_task: '新增任務'
   edit_task: '修改任務'
   create_success: '新增成功'

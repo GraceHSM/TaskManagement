@@ -9,6 +9,7 @@ en:
   deadline_at: 'Deadline at'
   edit: 'Edit'
   delete: 'Delete'
+  search: 'Search'
   new_task: 'New Task'
   edit_task: 'Edit Task'
   create_success: 'Create Task Success'
