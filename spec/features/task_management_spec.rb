@@ -23,14 +23,15 @@ RSpec.describe Task, :type => :feature do
   describe "Display tasks order by created_at" do
     it "ASC" do
       create_sorted_date('created_at')
-      click_on I18n.t('created_at_asc')
-      check_page_sorted('created_at_asc')
+      click_on I18n.t('created_at')
+      expect(first('.list').find('.created_at')).to have_text((DateTime.now - 1).to_s(:taskdate))
     end
 
     it "DESC" do
       create_sorted_date('created_at')
-      click_on I18n.t('created_at_desc')
-      check_page_sorted('created_at_desc')
+      click_on I18n.t('created_at')
+      click_on I18n.t('created_at')
+      expect(first('.list').find('.created_at')).to have_text((DateTime.now).to_s(:taskdate))
     end
   end
 
@@ -38,14 +39,15 @@ RSpec.describe Task, :type => :feature do
   describe "Display tasks order by start_at" do
     it "ASC" do
       create_sorted_date('start_at')
-      click_on I18n.t('start_at_asc')
-      check_page_sorted('start_at_asc')
+      click_on I18n.t('start_at')
+      expect(first('.list').find('.start_at')).to have_text((DateTime.now - 1).to_s(:taskdate))
     end
 
     it "DESC" do
       create_sorted_date('start_at')
-      click_on I18n.t('start_at_desc')
-      check_page_sorted('start_at_desc')
+      click_on I18n.t('start_at')
+      click_on I18n.t('start_at')
+      expect(first('.list').find('.start_at')).to have_text((DateTime.now).to_s(:taskdate))
     end
   end
 
@@ -53,14 +55,15 @@ RSpec.describe Task, :type => :feature do
   describe "Display tasks order by deadline_at" do
     it "ASC" do
       create_sorted_date('deadline_at')
-      click_on I18n.t('deadline_at_asc')
-      check_page_sorted('deadline_at_asc')
+      click_on I18n.t('deadline_at')
+      expect(first('.list').find('.deadline_at')).to have_text((DateTime.now - 1).to_s(:taskdate))
     end
 
     it "DESC" do
       create_sorted_date('deadline_at')
-      click_on I18n.t('deadline_at_desc')
-      check_page_sorted('deadline_at_desc')
+      click_on I18n.t('deadline_at')
+      click_on I18n.t('deadline_at')
+      expect(first('.list').find('.deadline_at')).to have_text((DateTime.now).to_s(:taskdate))
     end
   end
 
@@ -165,40 +168,5 @@ RSpec.describe Task, :type => :feature do
       create(:task, column => (DateTime.now - n))
     }
     visit tasks_path
-  end
-
-  # 測試資料 ASC 與 DESC 排列順序
-  def check_page_sorted(button)
-    case button
-    when 'created_at_asc'
-      expect(first('.list').find('.created_at')).to have_text((DateTime.now - 1).to_s(:taskdate))
-
-      expect(first('.list').find('.created_at')).to have_text(Task.sorted_by(button).first['created_at'].to_s(:taskdate))
-
-    when 'created_at_desc'
-      expect(first('.list').find('.created_at')).to have_text((DateTime.now).to_s(:taskdate))
-
-      expect(first('.list').find('.created_at')).to have_text(Task.sorted_by(button).first['created_at'].to_s(:taskdate))
-
-    when 'start_at_asc'
-      expect(first('.list').find('.start_at')).to have_text((DateTime.now - 1).to_s(:taskdate))
-
-      expect(first('.list').find('.start_at')).to have_text(Task.sorted_by(button).first['start_at'].to_s(:taskdate))
-
-    when 'start_at_desc'
-      expect(first('.list').find('.start_at')).to have_text((DateTime.now).to_s(:taskdate))
-
-      expect(first('.list').find('.start_at')).to have_text(Task.sorted_by(button).first['start_at'].to_s(:taskdate))
-
-    when 'deadline_at_asc'
-      expect(first('.list').find('.deadline_at')).to have_text((DateTime.now - 1).to_s(:taskdate))
-
-      expect(first('.list').find('.deadline_at')).to have_text(Task.sorted_by(button).first['deadline_at'].to_s(:taskdate))
-
-    when 'deadline_at_desc'
-      expect(first('.list').find('.deadline_at')).to have_text((DateTime.now).to_s(:taskdate))
-
-      expect(first('.list').find('.deadline_at')).to have_text(Task.sorted_by(button).first['deadline_at'].to_s(:taskdate))
-    end
   end
 end
