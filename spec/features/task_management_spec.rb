@@ -141,13 +141,27 @@ RSpec.describe Task, :type => :feature do
 
   # Search feature spec
   describe "Search tasks" do
-    it "only search status" do
+    before :each do
+      create(:task, title: 'abc123', status: 0)
+      visit tasks_path
+    end
+    it "status" do
+      select(User.human_attribute_name('pending'), from: 'q_status_eq')
+      click_on I18n.t('search')
+      expect(page).to have_content(User.human_attribute_name('pending'))
+    end
+    it "title" do
+      fill_in 'q_title_cont', with: 'c12'
+      click_on I18n.t('search')
+      expect(page).to have_content('abc123')
     end
 
-    it "only search title" do
-    end
-
-    it "search title and status" do
+    it "status and title" do
+      fill_in 'q_title_cont', with: 'c12'
+      select(User.human_attribute_name('pending'), from: 'q_status_eq')
+      click_on I18n.t('search')
+      expect(page).to have_content(User.human_attribute_name('pending'))
+      expect(page).to have_content('abc123')
     end
   end
 
