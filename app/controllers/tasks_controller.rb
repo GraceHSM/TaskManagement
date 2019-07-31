@@ -39,7 +39,7 @@ class TasksController < ApplicationController
 
   def sort
     @q = Task.ransack(params[:q])
-    @tasks = @q.result
+    @tasks = @q.result.page(params[:page]).per(5)
   end
 
   def task_params
