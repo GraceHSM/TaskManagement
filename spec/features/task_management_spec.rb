@@ -21,15 +21,14 @@ RSpec.describe Task, :type => :feature do
 
   # 依 task 建立日期 created_at 排序
   describe "Display tasks sorted by created_at" do
-    it "ASC" do
+    before :each do
       create_sorted_date('created_at')
       click_on I18n.t('created_at')
+    end
+    it "ASC" do
       expect(first('.list').find('.created_at')).to have_text((DateTime.now - 1).to_s(:taskdate))
     end
-
     it "DESC" do
-      create_sorted_date('created_at')
-      click_on I18n.t('created_at')
       click_on I18n.t('created_at')
       expect(first('.list').find('.created_at')).to have_text((DateTime.now).to_s(:taskdate))
     end
@@ -37,15 +36,14 @@ RSpec.describe Task, :type => :feature do
 
   # 依 task 開始日期 start_at 排序
   describe "Display tasks sorted by start_at" do
-    it "ASC" do
+    before :each do
       create_sorted_date('start_at')
       click_on I18n.t('start_at')
+    end
+    it "ASC" do
       expect(first('.list').find('.start_at')).to have_text((DateTime.now - 1).to_s(:taskdate))
     end
-
     it "DESC" do
-      create_sorted_date('start_at')
-      click_on I18n.t('start_at')
       click_on I18n.t('start_at')
       expect(first('.list').find('.start_at')).to have_text((DateTime.now).to_s(:taskdate))
     end
@@ -53,15 +51,14 @@ RSpec.describe Task, :type => :feature do
 
   # 依 task 結束日期 deadline_at 排序
   describe "Display tasks sorted by deadline_at" do
-    it "ASC" do
+    before :each do
       create_sorted_date('deadline_at')
       click_on I18n.t('deadline_at')
+    end
+    it "ASC" do
       expect(first('.list').find('.deadline_at')).to have_text((DateTime.now - 1).to_s(:taskdate))
     end
-
     it "DESC" do
-      create_sorted_date('deadline_at')
-      click_on I18n.t('deadline_at')
       click_on I18n.t('deadline_at')
       expect(first('.list').find('.deadline_at')).to have_text((DateTime.now).to_s(:taskdate))
     end
@@ -75,11 +72,9 @@ RSpec.describe Task, :type => :feature do
       visit tasks_path
       click_on I18n.t('priority')
     end
-
     it "ASC" do
       expect(first('.list').find('.priority')).to have_text(User.human_attribute_name('primary'))
     end
-
     it "DESC" do
       click_on I18n.t('priority')
       expect(first('.list').find('.priority')).to have_text(User.human_attribute_name('common'))
