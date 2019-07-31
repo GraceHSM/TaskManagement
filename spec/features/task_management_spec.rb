@@ -20,7 +20,7 @@ RSpec.describe Task, :type => :feature do
   end
 
   # 依 task 建立日期 created_at 排序
-  describe "Display tasks order by created_at" do
+  describe "Display tasks sorted by created_at" do
     it "ASC" do
       create_sorted_date('created_at')
       click_on I18n.t('created_at')
@@ -36,7 +36,7 @@ RSpec.describe Task, :type => :feature do
   end
 
   # 依 task 開始日期 start_at 排序
-  describe "Display tasks order by start_at" do
+  describe "Display tasks sorted by start_at" do
     it "ASC" do
       create_sorted_date('start_at')
       click_on I18n.t('start_at')
@@ -52,7 +52,7 @@ RSpec.describe Task, :type => :feature do
   end
 
   # 依 task 結束日期 deadline_at 排序
-  describe "Display tasks order by deadline_at" do
+  describe "Display tasks sorted by deadline_at" do
     it "ASC" do
       create_sorted_date('deadline_at')
       click_on I18n.t('deadline_at')
@@ -124,6 +124,18 @@ RSpec.describe Task, :type => :feature do
     task
     visit tasks_path
     expect{ click_on I18n.t('delete') }.to change{ Task.count }.by(-1)
+  end
+
+  # Search feature spec
+  describe "Search tasks" do
+    it "only search status" do
+    end
+
+    it "only search title" do
+    end
+
+    it "search title and status" do
+    end
   end
 
   private
