@@ -67,6 +67,24 @@ RSpec.describe Task, :type => :feature do
     end
   end
 
+  # 依 task 優先順序 priority 排序
+  describe "Display tasks sorted by priority" do
+    before :each do
+      create(:task, priority: 0)
+      create(:task, priority: 2)
+      visit tasks_path
+      click_on I18n.t('priority')
+    end
+
+    it "ASC" do
+      expect(first('.list').find('.priority')).to have_text(User.human_attribute_name('primary'))
+    end
+
+    it "DESC" do
+      click_on I18n.t('priority')
+      expect(first('.list').find('.priority')).to have_text(User.human_attribute_name('common'))
+    end
+  end
   # 新增 task 流程
   it "Fill in a new task" do
     fill_in_new_task
@@ -169,8 +187,8 @@ RSpec.describe Task, :type => :feature do
     expect(page).to have_content(content)
     expect(page).to have_content(start_at.to_s(:taskdate))
     expect(page).to have_content(deadline_at.to_s(:taskdate))
-    expect(page).to have_content(priority)
-    expect(page).to have_content(status)
+    expect(page).to have_content(User.human_attribute_name(priority))
+    expect(page).to have_content(User.human_attribute_name(status))
   end
 
   # 產生不同日期順序的資料
