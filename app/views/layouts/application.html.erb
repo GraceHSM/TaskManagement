@@ -10,13 +10,15 @@
   </head>
 
   <body>
-    <h1><%= t('TaskManagement') %></h1>
-    <div class="lan_change">
-      <ul>
-        <li><%= flash[:notice] %></li>
-        <li><%= link_to "中文版", :locale => "zh-TW" %></li>
-        <li><%= link_to "English", :locale => "en" %></li>
-      </ul>
+    <div class='container-fluid'>
+      <h1 class='text-center pt-5'><%= t('TaskManagement') %></h1>
+      <div class='lan_change'>
+        <ul class='d-flex justify-content-end'>
+          <li class='notice mr-auto'><%= flash[:notice] %></li>
+          <li class='ml-5'><%= link_to '中文', :locale => "zh-TW" %></li>
+          <li class='ml-5'><%= link_to 'English', :locale => "en" %></li>
+        </ul>
+      </div>
     </div>
     <%= yield %>
   </body>

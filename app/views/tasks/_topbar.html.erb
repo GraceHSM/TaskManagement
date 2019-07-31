@@ -1,13 +1,6 @@
 <div class='container-fluid'>
-  <%= link_to t('new_task'), new_task_path, class: 'text-parimary d-inline-block
-' %>
-  <form class='d-inline-block'>
-
-  </form>
+  <nav class='navbar bg-light justify-content-start'>
+    <%= link_to t('new_task'), new_task_path, class: 'text-parimary nav-link' %>
+    <%= link_to t('TaskLists'), root_path, class: 'nav-link'%>
+  </nav>
 </div>
-
-<%= form_tag(tasks_path, method: 'get', class: 'd-inline-block') do %>
-  <%= select_tag(:status, options_for_select([[User.human_attribute_name('pending'),'0'], [User.human_attribute_name('processing'),'1'], [User.human_attribute_name('completed'),'2']]), include_blank: t('choose_status')) %>
-  <%= text_field_tag(:title, nil, placeholder: 'Search') %>
-  <%= submit_tag("Search") %>
-<% end %>
