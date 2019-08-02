@@ -3,6 +3,6 @@ FactoryBot.define do
     username { Faker::Name.name }
     password { '111111' }
     email { Faker::Internet.email }
-    role { rand 0..1 }
+    role { 0 }
   end
 end

@@ -8,7 +8,6 @@ RSpec.describe Task, :type => :feature do
   let(:deadline_at) { DateTime.now + 1 }
   let(:priority) { ['primary', 'secondly', 'common'].sample }
   let(:status) { ['pending', 'processing', 'completed'].sample }
-
   describe 'Task CRUD' do
     it 'Read' do
       3.times{
