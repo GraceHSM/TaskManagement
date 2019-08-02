@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Task, :type => :feature do
+  before :all do
+    create(:user)
+  end
   let(:task){ create(:task) }
   let(:title) { Faker::Lorem.sentence }
   let(:content) { Faker::Lorem.paragraph }
