@@ -1,7 +1,6 @@
 class Task < ApplicationRecord
-  # 建立使用者之後再使用belongs_to
-  # belongs_to :user
-  # validates :user, presence: true
+  belongs_to :user
+  validates :user, presence: true
   validates :title, :content, presence: { message: I18n.t('must_be_presence') }
   validates :start_at, :deadline_at, presence: { message: I18n.t('must_be_choose_date') }
   validates :priority, :status, presence: { message: I18n.t('must_be_choose_option') }
