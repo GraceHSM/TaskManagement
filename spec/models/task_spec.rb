@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
+  let(:user){ create(:user) }
   before :each do
-    create(:task, title: 'abc123', status: 0)
-    create(:task, title: 'c12xy', status: 2)
-    create(:task, title: 'xyz', status: 2)
+    user
+    create(:task, user_id: user.id, title: 'abc123', status: 0)
+    create(:task, user_id: user.id, title: 'c12xy', status: 2)
+    create(:task, user_id: user.id, title: 'xyz', status: 2)
   end
   describe 'Search feature' do
     it 'title' do

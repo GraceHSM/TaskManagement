@@ -2,16 +2,19 @@ class TasksController < ApplicationController
   before_action :task_find, :only => [:edit, :update, :destroy]
 
   def index
+    current_user = User.last
     sort
   end
 
 
   def new
+
     @task = Task.new
   end
 
   def create
-    @task = Task.new(task_params)
+    current_user = User.last
+    @task = current_user.tasks.new(task_params)
     if @task.save
       redirect_to root_path, notice: t('create_success')
     else
