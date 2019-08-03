@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :task_find, :only => [:edit, :update, :destroy]
+  before_action :task_find, only: [:edit, :update, :destroy]
 
   def index
     current_user = User.last

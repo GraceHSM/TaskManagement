@@ -1,0 +1,10 @@
+<section class="container-fluid">
+<h2 class='mt-3'>Sign Up</h2>
+<%= simple_form_for @user do |t| %>
+  <%= t.input :username, label: false, placeholder: 'UserName' %>
+  <%= t.input :email, label:false, placeholder: 'E-mail' %>
+  <%= t.input :password, label: false, placeholder: 'Password', type:'password' %>
+  <%= t.input :password, label: false, placeholder: 'Password Confirmation', type:'password' %>
+<%= t.submit 'Submit', method: 'POST' %>
+<% end %>
+</section>
