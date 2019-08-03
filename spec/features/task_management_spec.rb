@@ -21,7 +21,6 @@ RSpec.describe Task, :type => :feature do
 
     it 'Create' do
       fill_in_new_task
-      task
       click_button I18n.t('submit')
       check_page(I18n.t('create_success'))
     end

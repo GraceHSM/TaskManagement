@@ -2,7 +2,6 @@ class TasksController < ApplicationController
   before_action :task_find, only: [:edit, :update, :destroy]
 
   def index
-    current_user = User.last
     sort
   end
 
@@ -12,8 +11,8 @@ class TasksController < ApplicationController
   end
 
   def create
-    current_user = User.last
-    @task = current_user.tasks.new(task_params)
+    @task = Task.new(task_params)
+    @task.user_id = User.last.id
     if @task.save
       redirect_to root_path, notice: t('create_success')
     else
@@ -41,7 +40,7 @@ class TasksController < ApplicationController
 
   def sort
     @q = Task.ransack(params[:q])
-    @tasks = @q.result.page(params[:page]).per(5)
+    @tasks = @q.result.where(user_id: User.last.id).page(params[:page]).per(5)
   end
 
   def task_params
