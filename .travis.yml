@@ -18,5 +18,6 @@ before_script:
 
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
+  - bundle exec rails db:seed
   - bundle exec rspec spec/features/task_management_spec.rb
   - bundle exec rspec spec/models/task_spec.rb
