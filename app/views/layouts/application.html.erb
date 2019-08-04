@@ -11,7 +11,12 @@
 
   <body>
     <div class='container-fluid'>
-      <h1 class='text-center pt-5'><%= t('TaskManagement') %></h1>
+      <ul class='pt-1 d-flex justify-content-end'>
+        <li class='ml-5'><%= link_to t('signin'), signin_path %></li>
+        <li class='ml-5'><%= link_to t('signup'), signup_path %></li>
+        <li class='ml-5'><%= link_to t('signout') %></li>
+      </ul>
+      <h1 class='text-center pt-2'><%= t('TaskManagement') %></h1>
       <div class='lan_change'>
         <ul class='d-flex justify-content-end'>
           <li class='notice mr-auto'><%= flash[:notice] %></li>
