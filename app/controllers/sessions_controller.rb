@@ -6,7 +6,7 @@ before_action :authenticate_user!, only: [:destroy]
   def create
     user = User.find_by(email: params[:email])
     if user and (user.password == params[:password])
-      log_in(user)
+      log_in user
       redirect_to root_path
     else
       render login_path, notice: 'Please login again'
