@@ -10,7 +10,11 @@
 
 * ER Model
 
+  ![image](docs/EModel.png)
+
 * Schema
+
+  ![image](docs/schema.png)
 
 ## Heroku Deploy:
 
@@ -25,4 +29,3 @@
 5. `$ heroku run bundle install`
 
 6. `$ heroku run rails db:migrate`
-7.
