@@ -44,6 +44,8 @@ gem 'bootstrap', '~> 4.3', '>= 4.3.1'
 
 gem 'ransack', '~> 2.1', '>= 2.1.1'
 
+gem 'kaminari', '~> 1.1', '>= 1.1.1'
+
 group :development, :test do
 
   gem 'rspec-rails', '~> 3.8', '>= 3.8.2'
