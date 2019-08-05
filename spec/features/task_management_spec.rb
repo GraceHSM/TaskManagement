@@ -1,10 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Task, :type => :feature do
-  before :all do
-    create(:user)
-  end
-  let(:task){ create(:task) }
+  let(:user){ create(:user, role: 0) }
+  let(:task){ create(:task, user_id: user.id) }
   let(:title) { Faker::Lorem.sentence }
   let(:content) { Faker::Lorem.paragraph }
   let(:start_at) { DateTime.now - 1 }
@@ -14,7 +12,7 @@ RSpec.describe Task, :type => :feature do
   describe 'Task CRUD' do
     it 'Read' do
       3.times{
-        create(:task)
+        create(:task, user_id: user.id)
       }
       expect(Task.count).to be 3
       visit tasks_path
@@ -87,8 +85,8 @@ RSpec.describe Task, :type => :feature do
 
     context 'priority' do
       before :each do
-        create(:task, priority: 0)
-        create(:task, priority: 2)
+        create(:task, user_id: user.id, priority: 0)
+        create(:task, user_id: user.id, priority: 2)
         visit tasks_path
         click_on I18n.t('priority')
       end
@@ -147,7 +145,7 @@ RSpec.describe Task, :type => :feature do
   # Search feature spec
   describe 'Search tasks' do
     before :each do
-      create(:task, title: 'abc123', status: 0)
+      create(:task, user_id: user.id, title: 'abc123', status: 0)
       visit tasks_path
     end
     it 'status' do
@@ -209,7 +207,7 @@ RSpec.describe Task, :type => :feature do
   def create_sorted_date(col)
     column = col.to_sym
     2.times{ |n|
-      create(:task, column => (DateTime.now - n))
+      create(:task, user_id: user.id, column => (DateTime.now - n))
     }
     visit tasks_path
   end

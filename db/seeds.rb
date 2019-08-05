@@ -1,7 +1,6 @@
-100.times{
-  FactoryBot.create(:task, user_id:2)
-}
+# user = FactoryBot.create(:user, role: 0)
+ FactoryBot.create(:user, role: 0)
 
-# 2.times{
-#   FactoryBot.create(:user)
+# 100.times{
+#   FactoryBot.create(:task, user_id:user.id)
 # }

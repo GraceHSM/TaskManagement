@@ -6,6 +6,5 @@ FactoryBot.define do
     deadline_at { DateTime.now + 1 }
     priority { rand 0..2 }
     status { rand 0..2 }
-    user_id { User.last.id }
   end
 end
