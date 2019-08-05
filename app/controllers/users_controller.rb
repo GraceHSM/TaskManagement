@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!, except: [:new]
   before_action :user_find, only: [:edit, :update, :destroy]
+
   def index
     @users = User.all()
   end
@@ -14,7 +16,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to users_path, notice: t('create_success')
+      redirect_to root_path, notice: t('create_success')
     else
       render :new
     end
@@ -24,7 +26,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    binding.pry
     if @user.update(user_params)
       redirect_to users_path, notice: t('edit_success')
     else
@@ -39,7 +40,7 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:username, :email, :password)
+    params.require(:user).permit(:username, :email, :password, :password_confirmation)
   end
 
   def user_find

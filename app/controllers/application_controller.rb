@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include SessionsHelper
   before_action :set_locale
 
   def set_locale
@@ -7,4 +8,5 @@ class ApplicationController < ActionController::Base
     end
     I18n.locale = session[:locale] || I18n.default_locale
   end
+
 end

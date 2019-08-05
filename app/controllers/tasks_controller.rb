@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  before_action :authenticate_user!
   before_action :task_find, only: [:edit, :update, :destroy]
 
   def index

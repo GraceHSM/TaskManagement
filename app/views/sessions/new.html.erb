@@ -1,0 +1,9 @@
+<section class="container">
+<h2 class='mt-3'>Log in</h2>
+<%= form_with url: login_path do |f| %>
+  <%= f.text_field :email, placeholder: 'E-mail' %>
+  <%= f.text_field :password, placeholder: 'Password' %>
+  <%= f.submit 'Submit', method: 'POST'  %>
+<% end %>
+<p>New User? <%= link_to 'Sign up', signup_path %></p>
+</section>
