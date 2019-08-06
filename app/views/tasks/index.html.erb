@@ -24,8 +24,9 @@
       <tr class='list'>
         <td class='priority'><%= Task.human_attribute_name(task.priority) %></td>
         <td class='created_at'><%= task.created_at.to_s(:taskdate) %></td>
-        <td class='title'><%= task.title %></td>
-        <td class='content'><%= task.content %></td>
+        <td class='title'><%= link_to task_path(task.id) do %><%= task.title %>
+        <% end %></td>
+        <td class='content'><%= link_to task_path(task.id) do %><%= task.content %><% end %></td>
         <td class='start_at'><%= task.start_at.to_s(:taskdate) %></td>
         <td class='deadline_at'><%= task.deadline_at.to_s(:taskdate) %></td>
         <td class='status'><%= Task.human_attribute_name(task.status) %></td>

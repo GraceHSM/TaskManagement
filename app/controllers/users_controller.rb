@@ -1,12 +1,13 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:new, :create]
-  before_action :user_find, only: [:edit, :update, :destroy]
+  before_action :user_find, only: [:edit, :show, :update, :destroy]
 
   def index
     @users = User.page(params[:page]).per(5)
   end
 
   def show
+    @tasks = @user.tasks.page(params[:page]).per(5)
   end
 
   def new

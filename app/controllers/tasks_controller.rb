@@ -1,11 +1,13 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
-  before_action :task_find, only: [:edit, :update, :destroy]
+  before_action :task_find, only: [:edit, :show, :update, :destroy]
 
   def index
     sort
   end
 
+  def show
+  end
 
   def new
     @task = Task.new

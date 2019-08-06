@@ -1,6 +1,7 @@
 'zh-TW':
   TaskManagement: '任務管理系統'
   TaskLists: '任務清單'
+  TaskDetail: '任務詳情'
   UserLists: '使用者列表'
   AdminUser: '管理使用者'
   NewUser: '還沒有帳號嗎？ '
