@@ -16,7 +16,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to root_path, notice: t('create_success')
+      if current_user.role == 'member'
+        redirect_to root_path, notice: t('create_success')
+      else
+        redirect_to users_path, notice: t('create_success')
+      end
     else
       render :new
     end

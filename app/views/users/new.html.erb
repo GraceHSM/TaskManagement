@@ -1,5 +1,9 @@
 <section class="container">
-<h2 class='mt-3'>Sign Up</h2>
+<% if current_user.role == 'member' %>
+  <h2 class='mt-3'>Sign Up</h2>
+<% else %>
+  <h2 class='mt-3'>Create User</h2>
+<% end %>
 <%= simple_form_for @user do |t| %>
   <%= t.input :username, label: false, placeholder: 'UserName' %>
   <%= t.input :email, label:false, placeholder: 'E-mail' %>
