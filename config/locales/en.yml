@@ -1,6 +1,7 @@
 en:
   TaskManagement: 'TaskManagement'
   TaskLists: 'Task Lists'
+  TaskDetail: 'Task Details'
   UserLists: 'User Lists'
   AdminUser: 'Admin Users'
   NewUser: 'New User ？ '

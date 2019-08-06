@@ -1,8 +1,7 @@
 before_install:
 - export TZ=Asia/Taipei
-
-cache:
-  bundler
+- gem update --system
+- gem install bundler
 
 services:
   - postgresql
