@@ -1,5 +1,5 @@
 class Task < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, counter_cache: true
   validates :user, presence: true
   validates :title, :content, presence: { message: I18n.t('must_be_presence') }
   validates :start_at, :deadline_at, presence: { message: I18n.t('must_be_choose_date') }
