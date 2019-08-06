@@ -2,15 +2,11 @@ en:
   TaskManagement: 'TaskManagement'
   TaskLists: 'Task Lists'
   UserLists: 'User Lists'
-  signin: 'Sign In'
+  AdminUser: 'Admin Users'
+  NewUser: 'New User ？ '
+  signin: 'Log In'
   signup: 'Sign Up'
   signout: 'Sign Out'
-  title: 'Title'
-  content: 'Content'
-  priority: 'Priority'
-  status: 'Status'
-  start_at: 'Start_at'
-  deadline_at: 'Deadline at'
   edit: 'Edit'
   delete: 'Delete'
   search: 'Search'
@@ -34,20 +30,21 @@ en:
   start_at_cannot_greater_than_deadline: "start date can't greater than deadline"
 
   activerecord:
-    models:
-      user: Task
     attributes:
-      user:
+      task:
+        title: 'Title'
+        content: 'Content'
+        priority: 'Priority'
+        status: 'Status'
+        start_at: 'Start at'
+        deadline_at: 'Deadline at'
+        created_at: 'Create at'
         primary: primary
         secondly: secondly
         common: common
         pending: pending
         processing: processing
         completed: completed
-
-    models:
-      user: User
-    attributes:
       user:
         admin: 'Admin'
         member: 'Member'

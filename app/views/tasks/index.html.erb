@@ -2,7 +2,7 @@
 <section class="container-fluid">
   <h2 class='mt-3'><%= t('TaskLists') %></h2>
   <%= search_form_for @q do |f| %>
-    <%= f.select :status_eq, options_for_select([[User.human_attribute_name('pending'),'0'], [User.human_attribute_name('processing'),'1'], [User.human_attribute_name('completed'),'2']]), include_blank: t('choose_status') %>
+    <%= f.select :status_eq, options_for_select([[Task.human_attribute_name('pending'), '0'], [Task.human_attribute_name('processing'), '1'], [Task.human_attribute_name('completed'), '2']]), include_blank: t('choose_status') %>
     <%= f.search_field :title_cont, placeholder: 'Search' %>
     <%= f.submit t('search') %>
   <% end %>
@@ -10,25 +10,25 @@
   <%= content_tag :table , class: 'table mt-3' do %>
     <thead>
       <tr>
-        <%= content_tag :th, sort_link(@q, 'priority', t('priority')) %>
-        <%= content_tag :th, sort_link(@q, 'created_at', t('created_at')) %>
-        <th><%= t('title') %></th>
-        <th><%= t('content') %></th>
-        <%= content_tag :th, sort_link(@q, 'start_at', t('start_at')) %>
-        <%= content_tag :th, sort_link(@q, 'deadline_at', t('deadline_at')) %>
-        <th colspan='2'><%= t('status') %></th>
+        <%= content_tag :th, sort_link(@q, 'priority', Task.human_attribute_name('priority')) %>
+        <%= content_tag :th, sort_link(@q, 'created_at', Task.human_attribute_name('created_at')) %>
+        <th><%= Task.human_attribute_name('title') %></th>
+        <th><%= Task.human_attribute_name('content') %></th>
+        <%= content_tag :th, sort_link(@q, 'start_at', Task.human_attribute_name('start_at')) %>
+        <%= content_tag :th, sort_link(@q, 'deadline_at', Task.human_attribute_name('deadline_at')) %>
+        <th colspan='2'><%= Task.human_attribute_name('status') %></th>
       </tr>
     </thead>
     <tbody>
       <% @tasks.each do |task| %>
       <tr class='list'>
-        <td class='priority'><%= User.human_attribute_name(task.priority) %></td>
+        <td class='priority'><%= Task.human_attribute_name(task.priority) %></td>
         <td class='created_at'><%= task.created_at.to_s(:taskdate) %></td>
         <td class='title'><%= task.title %></td>
         <td class='content'><%= task.content %></td>
         <td class='start_at'><%= task.start_at.to_s(:taskdate) %></td>
         <td class='deadline_at'><%= task.deadline_at.to_s(:taskdate) %></td>
-        <td class='status'><%= User.human_attribute_name(task.status) %></td>
+        <td class='status'><%= Task.human_attribute_name(task.status) %></td>
         <td><%= link_to t('edit'), edit_task_path(task), class:'mr-3' %><%= link_to t('delete'), task_path(task), method: 'DELETE' %></td>
       </tr>
       <% end %>

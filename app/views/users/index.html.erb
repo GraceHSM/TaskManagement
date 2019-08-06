@@ -1,13 +1,13 @@
 <%= render 'topbar' %>
 <section class="container-fluid">
-<h2 class='mt-3'>User Lists</h2>
+<h2 class='mt-3'><%= t('UserLists') %></h2>
 <table class='table mt-3'>
   <thead>
     <tr>
       <th><%= t('user_name') %></th>
       <th><%= t('email') %></th>
       <th><%= t('task_count') %></th>
-      <th><%= 'user_role' %></th>
+      <th><%= t('role') %></th>
       <th></th>
     </tr>
   </thead>
@@ -17,9 +17,8 @@
       <td><%= user.username %></td>
       <td><%= user.email %></td>
       <td><%= user.tasks.count %></td>
-      <% #user.tasks.count 之後會在 User 新增一個欄位,對應 Task.count,改善 N+1 問題 %>
-      <td><%= user.role %></td>
-      <td><%= link_to 'Edit', edit_user_path(user),class: 'mr-3' %><%= link_to 'Delete', user_path(user), method: 'delete' %></td>
+      <td><%= User.human_attribute_name(user.role) %></td>
+      <td><%= link_to 'Edit', edit_user_path(user), class: 'mr-3' %><%= link_to t('delete'), user_path(user), method: 'delete' %></td>
     </tr>
     <% end %>
   </tbody>

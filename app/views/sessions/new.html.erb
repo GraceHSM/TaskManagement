@@ -1,9 +1,9 @@
 <section class="container">
-<h2 class='mt-3'>Log in</h2>
+<h2 class='mt-3'><%= t('signin') %></h2>
 <%= form_with url: login_path do |f| %>
   <%= f.text_field :email, placeholder: 'E-mail' %>
   <%= f.text_field :password, placeholder: 'Password' %>
-  <%= f.submit 'Submit', method: 'POST'  %>
+  <%= f.submit t('submit'), method: 'POST'  %>
 <% end %>
-<p>New User? <%= link_to 'Sign up', signup_path %></p>
+<p><%= t('NewUser') %><%= link_to t('signup'), signup_path %></p>
 </section>

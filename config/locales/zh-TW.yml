@@ -2,15 +2,11 @@
   TaskManagement: '任務管理系統'
   TaskLists: '任務清單'
   UserLists: '使用者列表'
+  AdminUser: '管理使用者'
+  NewUser: '還沒有帳號嗎？ '
   signin: '登入'
   signup: '註冊'
   signout: '登出'
-  title: '標題'
-  content: '內容'
-  priority: '優先順序'
-  status: '任務狀態'
-  start_at: '開始時間'
-  deadline_at: '結束時間'
   edit: '編輯'
   delete: '刪除'
   search: '搜尋'
@@ -27,7 +23,6 @@
   edit_success: '修改成功'
   delete_success: '刪除成功'
   submit: '確定'
-  created_at: '建立日期'
   choose_status: '選擇狀態'
   must_be_presence: '請輸入資料'
   must_be_choose_date: '請選擇日期'
@@ -35,20 +30,21 @@
   start_at_cannot_greater_than_deadline: '開始日期不能在截止日期之後'
 
   activerecord:
-    models:
-      user: Task
     attributes:
-      user:
+      task:
+        title: '標題'
+        content: '內容'
+        priority: '優先順序'
+        status: '任務狀態'
+        start_at: '開始時間'
+        deadline_at: '結束時間'
+        created_at: '建立日期'
         primary: '高'
         secondly: '中'
         common: '低'
         pending: '待處理'
         processing: '進行中'
         completed: '已完成'
-
-    models:
-      user: User
-    attributes:
       user:
         admin: '管理者'
         member: '一般使用者'
