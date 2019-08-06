@@ -9,7 +9,7 @@ before_action :authenticate_user!, only: [:destroy]
       log_in user
       redirect_to root_path
     else
-      render login_path, notice: 'Please login again'
+      redirect_to login_path, notice: 'Please login again'
     end
   end
 
