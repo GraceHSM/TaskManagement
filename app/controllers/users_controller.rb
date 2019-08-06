@@ -32,7 +32,6 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      byebug
       redirect_to users_path, notice: t('edit_success')
     else
       render :edit
