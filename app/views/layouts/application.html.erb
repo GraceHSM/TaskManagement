@@ -24,7 +24,8 @@
         </ul>
         <ul class='d-flex'>
           <% if current_user && current_user.role == 'admin' %>
-          <li><%= link_to 'Admin', users_path %></li>
+          <li><%= link_to 'AdminUser', users_path %></li>
+          <li class='ml-5'><%= link_to 'Tasks', tasks_path %></li>
           <% end %>
           <li class='ml-5'><%= link_to '中文', :locale => "zh-TW" %></li>
           <li class='ml-5'><%= link_to 'English', :locale => "en" %></li>

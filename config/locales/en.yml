@@ -16,10 +16,12 @@ en:
   search: 'Search'
   new_task: 'New Task'
   edit_task: 'Edit Task'
+  role: 'Authorization'
   new_user: 'Create User'
   edit_user: 'Edit User'
   user_name: 'User Name'
   email: 'E-mail'
+  password: 'Password'
   task_count: 'Task Count'
   create_success: 'Create Task Success'
   edit_success: 'Edit Task Success'
@@ -42,6 +44,13 @@ en:
         pending: pending
         processing: processing
         completed: completed
+
+    models:
+      user: User
+    attributes:
+      user:
+        admin: 'Admin'
+        member: 'Member'
 
   views:
     pagination:

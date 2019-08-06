@@ -16,10 +16,12 @@
   search: '搜尋'
   new_task: '新增任務'
   edit_task: '修改任務'
+  role: '權限'
   new_user: '新增使用者'
   edit_user: '編輯使用者'
   user_name: '使用者'
   email: '電子信箱'
+  password: '密碼'
   task_count: '任務數量'
   create_success: '新增成功'
   edit_success: '修改成功'
@@ -43,6 +45,13 @@
         pending: '待處理'
         processing: '進行中'
         completed: '已完成'
+
+    models:
+      user: User
+    attributes:
+      user:
+        admin: '管理者'
+        member: '一般使用者'
 
   views:
     pagination:

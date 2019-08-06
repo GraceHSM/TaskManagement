@@ -7,6 +7,7 @@
       <th><%= t('user_name') %></th>
       <th><%= t('email') %></th>
       <th><%= t('task_count') %></th>
+      <th><%= 'user_role' %></th>
       <th></th>
     </tr>
   </thead>
@@ -17,10 +18,11 @@
       <td><%= user.email %></td>
       <td><%= user.tasks.count %></td>
       <% #user.tasks.count 之後會在 User 新增一個欄位,對應 Task.count,改善 N+1 問題 %>
-      <td><%= link_to 'Edit', edit_user_path(user) %><%= link_to 'Delete', user_path(user), method: 'delete' %></td>
+      <td><%= user.role %></td>
+      <td><%= link_to 'Edit', edit_user_path(user),class: 'mr-3' %><%= link_to 'Delete', user_path(user), method: 'delete' %></td>
     </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to 'NewUser', new_user_path %>
 </section>
+<%= paginate @users %>

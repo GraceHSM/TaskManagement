@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :user_find, only: [:edit, :update, :destroy]
 
   def index
-    @users = User.all()
+    @users = User.page(params[:page]).per(5)
   end
 
   def show
@@ -31,6 +31,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
+      byebug
       redirect_to users_path, notice: t('edit_success')
     else
       render :edit
@@ -44,7 +45,7 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:username, :email, :password)
+    params.require(:user).permit(:username, :email, :password, :role)
   end
 
   def user_find
