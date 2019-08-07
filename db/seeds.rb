@@ -1,6 +1,9 @@
-# user = FactoryBot.create(:user, role: 0)
- FactoryBot.create(:user, role: 0)
+User.create(username: 'admin', email: 'admin@gmail.com', password: '111111', role: 1)
 
-# 100.times{
-#   FactoryBot.create(:task, user_id:user.id)
-# }
+10.times{
+  u = FactoryBot.create(:user)
+  task = rand 0..10
+  task.times{
+    FactoryBot.create(:task, user_id: u.id)
+  }
+}
