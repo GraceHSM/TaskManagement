@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:new, :create]
-  before_action :permission_check!, except: [:edit, :update]
+  before_action :permission_check!
   before_action :user_find, only: [:edit, :show, :update, :destroy]
 
   def index
@@ -44,8 +44,16 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy if @user
-    redirect_to users_path, notice: t('delete_success')
+    if @user.role == 'admin'
+      if User.where(role: 'admin').count > 1
+        @user.destroy if @user
+        redirect_to users_path, notice: t('delete_success')
+      elsif is_admin?
+        redirect_to users_path, notice: 'you can not delete yourself'
+      else
+        redirect_to users_path, notice: 'admin less than 1'
+      end
+    end
   end
 
   private

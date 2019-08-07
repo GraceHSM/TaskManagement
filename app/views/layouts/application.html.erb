@@ -19,15 +19,12 @@
             <li class='ml-3'>Hello, <%= current_user.username %></li>
           <% else %>
             <li class='mr-3'><%= link_to t('signin'), login_path %></li>
-            <li><%= link_to t('signup'), signup_path %></li>
           <% end %>
         </ul>
         <ul class='d-flex'>
           <% if current_user && current_user.role == 'admin' %>
           <li><%= link_to t('AdminUser'), users_path %></li>
           <li class='ml-3'><%= link_to t('TaskLists'), tasks_path %></li>
-          <% elsif current_user && current_user.role == 'member' %>
-          <li class='ml-3'><%= link_to t('edit'), edit_user_path(current_user.id) %></li>
           <% end %>
           <li class='ml-3'><%= link_to '中文', :locale => "zh-TW" %></li>
           <li class='ml-3'><%= link_to 'English', :locale => "en" %></li>

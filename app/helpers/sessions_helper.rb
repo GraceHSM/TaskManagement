@@ -1,13 +1,13 @@
 module SessionsHelper
   def authenticate_user!
     if session[:user_id].nil?
-      redirect_to login_path, notice: 'Please Login'
+      redirect_to login_path, notice: t('please_login')
     end
   end
 
   def permission_check!
     if not is_admin?
-      redirect_to root_path, notice: 'Permission denied'
+      redirect_to root_path, notice: t('permission_denied')
     end
   end
 

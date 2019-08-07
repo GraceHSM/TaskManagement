@@ -5,6 +5,8 @@
   UserLists: '使用者列表'
   AdminUser: '管理使用者'
   NewUser: '還沒有帳號嗎？ '
+  please_login: '請先登入'
+  permission_denied: '權限不足'
   signin: '登入'
   signup: '註冊'
   signout: '登出'
