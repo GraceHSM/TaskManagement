@@ -18,11 +18,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      if current_user.role == 'member'
-        redirect_to root_path, notice: t('create_success')
-      else
-        redirect_to users_path, notice: t('create_success')
-      end
+      redirect_to users_path, notice: t('create_success')
     else
       render :new
     end
@@ -33,25 +29,21 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      if is_admin?
-        redirect_to users_path, notice: t('edit_success')
-      else
-        redirect_to tasks_path, notice: t('edit_success')
-      end
+      redirect_to users_path, notice: t('edit_success')
     else
       render :edit
     end
   end
 
   def destroy
-    if @user.role == 'admin'
-      if User.where(role: 'admin').count > 1
+    if @user.id == current_user.id
+      redirect_to users_path, notice: t('you_can_not_delete_yourself')
+    else
+      if User.where(role: 'admin').count >= 1
         @user.destroy if @user
         redirect_to users_path, notice: t('delete_success')
-      elsif is_admin?
-        redirect_to users_path, notice: 'you can not delete yourself'
       else
-        redirect_to users_path, notice: 'admin less than 1'
+        redirect_to users_path, notice: t('admin_less_than_1')
       end
     end
   end

@@ -7,6 +7,8 @@ en:
   NewUser: 'New User ？ '
   please_login: 'Please Login'
   permission_denied: 'Permission denied'
+  admin_less_than_1: 'Admin less than 1'
+  you_can_not_delete_yourself: "You can't delete yourself"
   signin: 'Log In'
   signup: 'Sign Up'
   signout: 'Sign Out'
