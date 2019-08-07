@@ -5,6 +5,12 @@ module SessionsHelper
     end
   end
 
+  def permission_check!
+    if not is_admin?
+      redirect_to root_path, notice: 'Permission denied'
+    end
+  end
+
   def log_in(user)
     session[:user_id] = user.id
   end
@@ -17,5 +23,9 @@ module SessionsHelper
 
   def logged_in?
     !current_user.nil?
+  end
+
+  def is_admin?
+    current_user.role == 'admin'
   end
 end

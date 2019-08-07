@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:new, :create]
+  before_action :permission_check!, except: [:edit, :update]
   before_action :user_find, only: [:edit, :show, :update, :destroy]
 
   def index
@@ -32,7 +33,11 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to users_path, notice: t('edit_success')
+      if is_admin?
+        redirect_to users_path, notice: t('edit_success')
+      else
+        redirect_to tasks_path, notice: t('edit_success')
+      end
     else
       render :edit
     end
