@@ -10,6 +10,7 @@ RSpec.describe Task, type: :model do
 
   describe 'Search feature' do
     before :each do
+      Task.delete(Task.all)
       create_task('abc123', 'pending')
       create_task('c12xy', 'completed')
       create_task('xyz', 'completed')
