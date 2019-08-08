@@ -1,4 +1,9 @@
-User.find_or_create_by(username: 'admin', email: 'admin@gmail.com', password: '111111', role: 1)
+user = User.find_or_create_by(email: 'admin@gmail.com') do |u|
+  u.username = 'admin'
+  u.password = '111111'
+  u.password_confirmation = '111111'
+  u.role = 1
+end
 
 10.times{
   u = FactoryBot.create(:user, password_confirmation: '111111')
