@@ -6,9 +6,12 @@ user = User.find_or_create_by(email: 'admin@gmail.com') do |u|
 end
 
 10.times{
-  u = FactoryBot.create(:user, password_confirmation: '111111')
-  task = rand 0..10
-  task.times{
-    FactoryBot.create(:task, user_id: u.id)
-  }
+  email_check = Faker::Internet.email
+  if User.find_by(email: email_check).nil?
+    u = FactoryBot.create(:user, email: email_check)
+    task = rand 0..10
+    task.times{
+      FactoryBot.create(:task, user_id: u.id)
+    }
+  end
 }
