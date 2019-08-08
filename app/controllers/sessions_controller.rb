@@ -9,12 +9,12 @@ before_action :authenticate_user!, only: [:destroy]
       log_in user
       redirect_to root_path
     else
-      redirect_to login_path, notice: 'Please login again'
+      redirect_to login_path, notice: t('please_login_again')
     end
   end
 
   def destroy
     session.clear
-    redirect_to login_path, notice: 'logout'
+    redirect_to login_path, notice: t('signout')
   end
 end
