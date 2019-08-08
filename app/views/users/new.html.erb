@@ -6,6 +6,7 @@
   <%= f.input :username, label: false, placeholder: 'User Name' %>
   <%= f.input :email, label:false, placeholder: 'E-mail' %>
   <%= f.input :password, label: false, placeholder: 'Password', type: 'password' %>
+  <%= f.input :password_confirmation, label: false, placeholder: 'Password Confirmation', type: 'password' %>
   <%= f.input :role, label: t('role'), required: false, as: :radio_buttons, collection: [[User.human_attribute_name('admin'), 'admin'], [User.human_attribute_name('member'), 'member']], checked: 'member' %>
   <%= f.submit t('submit'), method: 'POST' %>
 <% end %>

@@ -2,6 +2,10 @@ class User < ApplicationRecord
   before_destroy :vaild_admin_account
   has_many :tasks, dependent: :destroy
   validates :email, :username, :password, presence: true
+  validates :email, uniqueness: true
+  validates :password, length: { minimum: 6 }
+  validates :password_confirmation, presence: true
+  validates :password, confirmation: true
 
   enum role: [:member, :admin]
 
