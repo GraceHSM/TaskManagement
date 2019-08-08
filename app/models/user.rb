@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   before_destroy :vaild_admin_account
   has_many :tasks, dependent: :destroy
-  validates :email, :username, :password, presence: true
-  validates :email, uniqueness: true
+  validates :email, :username, :password, presence: { message: I18n.t('must_be_presence') }
+  validates :email, uniqueness: { message: I18n.t('the_email_has_already_been_used')}
   validates :password, confirmation: true
   validates :password_confirmation, presence: true
   validates :password, length: { minimum: 6 }

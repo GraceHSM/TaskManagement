@@ -34,7 +34,8 @@
   must_be_choose_date: '請選擇日期'
   must_be_choose_option: '請選擇項目'
   start_at_cannot_greater_than_deadline: '開始日期不能在截止日期之後'
-
+  the_email_has_already_been_used: '該電子郵件已被使用'
+  more_than_6_character: '密碼須大於 6 個字元'
   activerecord:
     attributes:
       task:

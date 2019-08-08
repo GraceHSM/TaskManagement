@@ -26,8 +26,8 @@
           <li><%= link_to t('AdminUser'), users_path %></li>
           <li class='ml-3'><%= link_to t('TaskLists'), tasks_path %></li>
           <% end %>
-          <li class='ml-3'><%= link_to '中文', :locale => "zh-TW" %></li>
-          <li class='ml-3'><%= link_to 'English', :locale => "en" %></li>
+          <li class='ml-3'><%= link_to '中文', controller: 'tasks', action: 'index', locale: "zh-TW" %></li>
+          <li class='ml-3'><%= link_to 'English', controller: 'tasks', action: 'index', locale: "en" %></li>
         </ul>
       </div>
       <div class='container'>
