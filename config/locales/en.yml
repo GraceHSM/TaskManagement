@@ -8,6 +8,8 @@ en:
   please_login: 'Please Login'
   please_login_again: 'Please login again'
   password_confirmation: 'Input the same password'
+  page_not_found: 'Page not found'
+  internal_error: '500'
   permission_denied: 'Permission denied'
   admin_less_than_1: 'Admin less than 1'
   you_can_not_delete_yourself: "You can't delete yourself"

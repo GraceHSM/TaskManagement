@@ -8,6 +8,8 @@
   please_login: '請先登入'
   please_login_again: '請重新登入'
   password_confirmation: '再輸入一次'
+  page_not_found: '找不到頁面哦'
+  internal_error: '伍佰在這裡 XD'
   permission_denied: '權限不足'
   admin_less_than_1: '管理者只剩下一個人'
   you_can_not_delete_yourself: '不能刪除自己'
