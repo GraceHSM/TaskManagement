@@ -5,7 +5,7 @@ before_action :authenticate_user!, only: [:destroy]
 
   def create
     user = User.find_by(email: params[:email])
-    if user and (user.password == params[:password])
+    if user and (user.password == pwd_digest(params[:password]))
       log_in user
       redirect_to root_path
     else
@@ -16,5 +16,10 @@ before_action :authenticate_user!, only: [:destroy]
   def destroy
     session.clear
     redirect_to login_path, notice: t('signout')
+  end
+
+  private
+  def pwd_digest(pwd)
+    Digest::SHA256.hexdigest pwd
   end
 end

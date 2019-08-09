@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  before_save :digest_password
   before_destroy :vaild_admin_account
   has_many :tasks, dependent: :destroy
   validates :email, :username, :password, presence: { message: I18n.t('must_be_presence') }
@@ -10,6 +11,10 @@ class User < ApplicationRecord
   enum role: [:member, :admin]
 
   private
+  def digest_password
+    self.password = Digest::SHA256.hexdigest password
+  end
+
   def vaild_admin_account
     if self.role == 'admin'
       unless User.where(role: 'admin').count >= 1
