@@ -5,7 +5,7 @@ class Task < ApplicationRecord
   validates :priority, :status, presence: { message: I18n.t('must_be_choose_option') }
   validate :start_at_cannot_greater_than_deadline
 
-  has_many :task_tags
+  has_many :task_tags, dependent: :destroy
   has_many :tags, through: :task_tags
   enum status: [:pending, :processing, :completed]
   enum priority: [:primary, :secondly, :common]
