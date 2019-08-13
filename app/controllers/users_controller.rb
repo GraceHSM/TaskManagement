@@ -40,7 +40,7 @@ class UsersController < ApplicationController
       redirect_to users_path, notice: t('you_can_not_delete_yourself')
     else
       if User.where(role: 'admin').count >= 1
-        @user.destroy if @user
+        @user.destroy
         redirect_to users_path, notice: t('delete_success')
       else
         redirect_to users_path, notice: t('admin_less_than_1')

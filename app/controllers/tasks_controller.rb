@@ -3,7 +3,8 @@ class TasksController < ApplicationController
   before_action :task_find, only: [:edit, :show, :update, :destroy]
 
   def index
-    sort
+    @q = current_user.tasks.ransack(params[:q])
+    @tasks = @q.result.page(params[:page]).per(5)
   end
 
   def show
@@ -52,16 +53,11 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task.destroy if @task
+    @task.destroy
     redirect_to root_path, notice: t('delete_success')
   end
 
   private
-
-  def sort
-    @q = current_user.tasks.ransack(params[:q])
-    @tasks = @q.result.page(params[:page]).per(5)
-  end
 
   def task_params
     params.require(:task).permit(:title, :content, :priority, :status, :start_at, :deadline_at)
