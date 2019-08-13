@@ -1,12 +1,15 @@
 class Task < ApplicationRecord
   belongs_to :user, counter_cache: true
+  has_many :task_tags, dependent: :destroy
+  has_many :tags, through: :task_tags
+
+  # accepts_nested_attributes_for :tags
+
   validates :title, :content, presence: { message: I18n.t('must_be_presence') }
   validates :start_at, :deadline_at, presence: { message: I18n.t('must_be_choose_date') }
   validates :priority, :status, presence: { message: I18n.t('must_be_choose_option') }
   validate :start_at_cannot_greater_than_deadline
 
-  has_many :task_tags, dependent: :destroy
-  has_many :tags, through: :task_tags
   enum status: [:pending, :processing, :completed]
   enum priority: [:primary, :secondly, :common]
 

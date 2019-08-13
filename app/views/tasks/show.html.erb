@@ -10,6 +10,14 @@
     <td><%= @task.content %></td>
   </tr>
   <tr>
+    <th>Tag</th>
+    <td>
+      <% @task.tags.each do |tag| %>
+        <span class='tag'><%= tag.label %></span>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
     <th><%= Task.human_attribute_name('start_at') %></th>
     <td><%= @task.start_at.to_s(:taskdate) %></td>
   </tr>

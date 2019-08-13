@@ -7,7 +7,8 @@ end
 
 tags = []
 30.times{
-  tag = FactoryBot.create(:tag)
+  label = Faker::Lorem.word
+  tag = Tag.find_or_create_by(label: label)
   tags << tag.id
 }
 
