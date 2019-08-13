@@ -55,6 +55,8 @@ en:
         pending: pending
         processing: processing
         completed: completed
+      task_tag:
+        label: 'Tags'
       user:
         admin: 'Admin'
         member: 'Member'

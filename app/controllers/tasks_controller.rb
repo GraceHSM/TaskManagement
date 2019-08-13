@@ -59,8 +59,8 @@ class TasksController < ApplicationController
   private
 
   def sort
-    @q = Task.ransack(params[:q])
-    @tasks = @q.result.where(user_id: current_user.id).page(params[:page]).per(5)
+    @q = current_user.tasks.ransack(params[:q])
+    @tasks = @q.result.page(params[:page]).per(5)
   end
 
   def task_params
