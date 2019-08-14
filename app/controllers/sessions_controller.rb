@@ -5,7 +5,7 @@ before_action :authenticate_user!, only: [:destroy]
 
   def create
     user = User.find_by(email: params[:email])
-    if user and (user.password == pwd_digest(params[:password]))
+    if user && (user.password == pwd_digest(params[:password]))
       log_in user
       redirect_to root_path
     else
