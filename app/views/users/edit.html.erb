@@ -4,7 +4,7 @@
   <%= f.input :username, label: t('user_name'), required:false %>
   <%= f.input :password, label: t('password'), required:false, type:'password' %>
   <%= f.input :password_confirmation, label: t('password_confirmation'), required:false, type: 'password' %>
-  <% if current_user.role == 'admin' %>
+  <% if is_admin?(@current_user) %>
     <%= f.input :role, label: t('role'), required: false, as: :radio_buttons, collection: [[User.human_attribute_name('admin'), 'admin'], [User.human_attribute_name('member'), 'member']], checked: 'member' %>
   <% end %>
 <%= f.submit t('submit'), method: 'POST' %>
