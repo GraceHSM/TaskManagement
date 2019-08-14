@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Task, :type => :feature do
+RSpec.describe TaskManagement, :type => :feature do
   let(:user){ create(:user, email:'abc@gmail.com') }
   let(:task){ create(:task, user_id: user.id) }
   let(:title) { Faker::Lorem.sentence }
@@ -9,6 +9,7 @@ RSpec.describe Task, :type => :feature do
   let(:deadline_at) { DateTime.now + 1 }
   let(:priority) { ['primary', 'secondly', 'common'].sample }
   let(:status) { ['pending', 'processing', 'completed'].sample }
+
   describe 'Task CRUD' do
     before :each do
       user
