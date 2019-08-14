@@ -64,7 +64,11 @@ class TasksController < ApplicationController
   end
 
   def tag_params
-    params.require(:tag_ids)
+    if params[:tag_ids]
+      return params.require(:tag_ids)
+    else
+      return []
+    end
   end
 
   def task_find

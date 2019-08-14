@@ -158,13 +158,13 @@ RSpec.describe Task, :type => :feature do
       expect(find('.list')).to have_content(Task.human_attribute_name('pending'))
     end
     it 'title' do
-      fill_in 'q_title_cont', with: 'c12'
+      fill_in 'q_title_or_tags_label_cont', with: 'c12'
       click_on I18n.t('search')
       expect(find('.list')).to have_content('abc123')
     end
 
     it 'status and title' do
-      fill_in 'q_title_cont', with: 'c12'
+      fill_in 'q_title_or_tags_label_cont', with: 'c12'
       select(Task.human_attribute_name('pending'), from: 'q_status_eq')
       click_on I18n.t('search')
       expect(find('.list')).not_to have_content(Task.human_attribute_name('processing'))

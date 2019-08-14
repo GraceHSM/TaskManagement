@@ -28,8 +28,10 @@
         <td class='title'><%= link_to task_path(task.id) do %><%= truncate(task.title) %><% end %></td>
         <td class='content'><%= link_to task_path(task.id) do %><%= truncate(task.content) %><% end %></td>
         <td class='tags'>
-          <% task.tags.each do |tag| %>
-            <span class='tag'><%= tag.label %></span>
+          <% if !task.tags.nil? %>
+            <% task.tags.each do |tag| %>
+              <span class='tag'><%= tag.label %></span>
+            <% end %>
           <% end %>
         </td>
         <td class='start_at'><%= task.start_at.to_s(:taskdate) %></td>

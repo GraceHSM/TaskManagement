@@ -14,9 +14,11 @@
     <%= label_tag "label[#{tag.label}]", tag.label %>
     <% end %>
   <% end %>
-  <% tags.each do |tag| %>
-    <%= check_box_tag "tag_ids[]", tag.id, false, id: "label_#{tag.label}" %>
-    <%= label_tag "label[#{tag.label}]", tag.label %>
+  <% if tags %>
+    <% tags.each do |tag| %>
+      <%= check_box_tag "tag_ids[]", tag.id, false, id: "label_#{tag.label}" %>
+      <%= label_tag "label[#{tag.label}]", tag.label %>
+    <% end %>
   <% end %>
   <%= f.submit t('submit'), method: 'POST' %>
 <% end %>
