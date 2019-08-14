@@ -11,7 +11,7 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = Task.new
+    @task = current_user.tasks.new
     @tags = Tag.all
   end
 

@@ -1,5 +1,5 @@
 <section class="container">
-<% if current_user.role == 'admin'  %>
+<% if is_admin?(@current_user)  %>
   <h2 class='mt-3'><%= t('new_user') %></h2>
 <% end %>
 <%= simple_form_for @user do |f| %>

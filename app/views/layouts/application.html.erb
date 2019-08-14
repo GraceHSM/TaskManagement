@@ -16,13 +16,13 @@
         <ul class='d-flex pl-0'>
           <% if logged_in? %>
             <li><%= link_to t('signout'), logout_path, method:'delete' %></li>
-            <li class='ml-3'>Hello, <%= current_user.username %></li>
+            <li class='ml-3'>Hello, <%= @current_user.username %></li>
           <% else %>
             <li class='mr-3'><%= link_to t('signin'), login_path %></li>
           <% end %>
         </ul>
         <ul class='d-flex'>
-          <% if current_user && current_user.role == 'admin' %>
+          <% if is_admin?(@current_user) %>
           <li><%= link_to t('AdminUser'), users_path %></li>
           <li class='ml-3'><%= link_to t('TaskLists'), tasks_path %></li>
           <% end %>
