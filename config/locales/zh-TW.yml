@@ -20,6 +20,8 @@
   delete: '刪除'
   search: '搜尋'
   new_task: '新增任務'
+  custom_sort: '自定排序'
+  setting_sort: '以拖拉方式自訂順序，排序完成請按確定'
   edit_task: '修改任務'
   role: '權限'
   new_user: '新增使用者'

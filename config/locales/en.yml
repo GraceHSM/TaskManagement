@@ -20,6 +20,8 @@ en:
   delete: 'Delete'
   search: 'Search'
   new_task: 'New Task'
+  custom_sort: 'Custom Sort'
+  setting_sort: 'Setting sort by drag and drop, click SUBMIT when you finished'
   edit_task: 'Edit Task'
   role: 'Authorization'
   new_user: 'Create User'

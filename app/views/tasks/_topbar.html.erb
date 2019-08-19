@@ -1,6 +1,7 @@
 <div class='container-fluid'>
   <nav class='d-flex justify-content-start'>
     <%= link_to t('new_task'), new_task_path, class: 'badge badge-pill badge-dark px-4 py-3 mr-2' %>
-    <%= link_to t('TaskLists'), root_path, class: 'badge badge-pill badge-dark px-4 py-3'%>
+    <%= link_to t('TaskLists'), root_path, class: 'badge badge-pill badge-dark px-4 py-3 mr-2'%>
+    <%= link_to t('custom_sort'), sort_tasks_path, class: 'badge badge-pill badge-dark px-4 py-3'%>
   </nav>
 </div>

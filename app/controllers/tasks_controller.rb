@@ -25,6 +25,7 @@ class TasksController < ApplicationController
       end
       redirect_to root_path, notice: t('create_success')
     else
+      @tags = Tag.all
       render :new
     end
   end
@@ -55,6 +56,10 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     redirect_to root_path, notice: t('delete_success')
+  end
+
+  def sort
+    @tasks = current_user.tasks
   end
 
   private
