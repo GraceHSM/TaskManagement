@@ -50,6 +50,8 @@ gem 'factory_bot_rails', '~> 5.0', '>= 5.0.2'
 
 gem 'faker', '~> 1.6', '>= 1.6.6'
 
+gem 'webpacker', '~> 4.0', '>= 4.0.7'
+
 group :development, :test do
 
   gem 'rspec-rails', '~> 3.8', '>= 3.8.2'
