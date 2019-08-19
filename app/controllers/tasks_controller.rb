@@ -58,8 +58,12 @@ class TasksController < ApplicationController
     redirect_to root_path, notice: t('delete_success')
   end
 
-  def sort
+  def list
     @tasks = current_user.tasks
+  end
+
+  def sort
+    redirect_to list_tasks_path, notice: t('edit_success')
   end
 
   private

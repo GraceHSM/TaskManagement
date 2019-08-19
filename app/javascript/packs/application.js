@@ -15,4 +15,6 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-console.log('Hello World from Webpacker')
+import 'modules/sort/dragAndDrop.js';
+// console.log('Hello World from Webpacker')
+import 'style/application.scss'
