@@ -1,33 +1,29 @@
-let lists = document.querySelectorAll('.list')
-lists.forEach( list => {
-  list.addEventListener('dragstart', dragStart)
-  list.addEventListener('drop', dropped)
-  list.addEventListener('dragenter', cancelDefault)
-  list.addEventListener('dragover', cancelDefault)
+let items = document.querySelectorAll('.list')
+items.forEach( item => {
+  item.addEventListener('dragstart', dragStart)
+  item.addEventListener('drop', dropped)
+  item.addEventListener('dragenter', cancelDefault)
+  item.addEventListener('dragover', cancelDefault)
 })
 
 function dragStart (ev) {
-  var index = ev.target.querySelector('td input').id
+  let index = ev.target.rowIndex - 1
   ev.dataTransfer.setData('text', index)
 }
 
 function dropped (ev){
   cancelDefault(ev)
 
-  // get new and old index
-  let oldIndex = ev.dataTransfer.getData('text')
+  // Get drag element
+  let lists = document.querySelectorAll('.list');
+  let index = ev.dataTransfer.getData('text')
+  let content = lists[index]
+
+  // Drop place
   let target = ev.currentTarget
-  let newIndex = target.querySelector('td input').id
 
-  // remove dropped items at old place
-  // let dropped = $(this).parent().children().eq(oldIndex).remove()
-
-  // insert the dropped items at new place
-  // if (newIndex < oldIndex) {
-  //   target.before(dropped)
-  // } else {
-  //   target.after(dropped)
-  // }
+  //move drag element before drop element
+  target.insertAdjacentElement('beforebegin', content)
 }
 
 function cancelDefault(ev){
