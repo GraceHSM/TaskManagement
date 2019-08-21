@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :user, counter_cache: true
+  has_one :sort_list, dependent: :destroy
   has_many :task_tags, dependent: :destroy
   has_many :tags, through: :task_tags
 

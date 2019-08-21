@@ -20,6 +20,7 @@ tags = []
 
     tasks.times{
       task = FactoryBot.create(:task, user_id: u.id)
+      task.create_sort_list(sort: 0)
 
       tag_count = rand 0..4
       if tag_count >= 1

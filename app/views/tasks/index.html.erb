@@ -10,6 +10,7 @@
   <%= content_tag :table, class: 'table mt-3' do %>
     <thead>
       <tr>
+        <%= content_tag :th, sort_link(@q, 'sort_list_sort', 'No') %>
         <%= content_tag :th, sort_link(@q, 'priority', Task.human_attribute_name('priority')) %>
         <%= content_tag :th, sort_link(@q, 'created_at', Task.human_attribute_name('created_at')) %>
         <th><%= Task.human_attribute_name('title') %></th>
@@ -21,8 +22,9 @@
       </tr>
     </thead>
     <tbody>
-      <% @tasks.each do |task| %>
+      <% @tasks.each_with_index do |task| %>
       <tr class='list'>
+        <td><%= task.sort_list.sort + 1 %></td>
         <td class='priority'><%= Task.human_attribute_name(task.priority) %></td>
         <td class='created_at'><%= task.created_at.to_s(:taskdate) %></td>
         <td class='title'><%= link_to task_path(task.id) do %><%= truncate(task.title) %><% end %></td>

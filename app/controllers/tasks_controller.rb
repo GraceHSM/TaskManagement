@@ -1,9 +1,9 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :task_find, only: [:edit, :show, :update, :destroy]
-
+  after_action :reorder, only: [:create, :update, :destroy]
   def index
-    @q = current_user.tasks.ransack(params[:q])
+    @q = current_user.tasks.includes(:tags, :sort_list).order('sort_lists.sort asc').ransack(params[:q])
     @tasks = @q.result.page(params[:page]).per(5)
   end
 
@@ -18,6 +18,7 @@ class TasksController < ApplicationController
   def create
     @task = current_user.tasks.new(task_params)
     if @task.save
+      @task.create_sort_list(sort: 0)
       if tag_params
         tag_params.each do |tag_id|
           @task.task_tags.create(tag_id: tag_id)
@@ -59,10 +60,14 @@ class TasksController < ApplicationController
   end
 
   def list
-    @tasks = current_user.tasks
+    @tasks = current_user.tasks.includes(:sort_list).order('sort_lists.sort asc')
   end
 
   def sort
+    lists = sort_params
+    lists.each_with_index do |list, index|
+      item = Task.find(list).sort_list.update(sort: index)
+    end
     redirect_to list_tasks_path, notice: t('edit_success')
   end
 
@@ -81,6 +86,17 @@ class TasksController < ApplicationController
   end
 
   def task_find
-    @task = Task.find(params[:id])
+    @task = Task.includes(:tags).find(params[:id])
+  end
+
+  def sort_params
+    params[:lists]
+  end
+
+  def reorder
+    lists = current_user.tasks.includes(:sort_list).order('sort_lists.sort asc').ids
+    lists.each_with_index do |list, index|
+      item = Task.find(list).sort_list.update(sort: index)
+    end
   end
 end

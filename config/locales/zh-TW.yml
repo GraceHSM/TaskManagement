@@ -46,7 +46,7 @@
       task:
         title: '標題'
         content: '內容'
-        priority: '優先順序'
+        priority: '優先度'
         status: '任務狀態'
         start_at: '開始時間'
         deadline_at: '結束時間'

@@ -8,7 +8,7 @@
   <table class='table mt-3'>
     <thead>
       <tr>
-        <th>Index|Task_Id</th>
+        <th>No</th>
         <th><%= Task.human_attribute_name('priority') %></th>
         <th><%= Task.human_attribute_name('created_at') %></th>
         <th><%= Task.human_attribute_name('title') %></th>
@@ -20,10 +20,9 @@
       </tr>
     </thead>
     <tbody id='lists'>
-    <% index = 1 %>
       <% @tasks.each do |task| %>
       <tr class='list' draggable='true'>
-        <td><%= text_field_tag "lists[]", index, size: 5, id: false %>|<%= task.id %></td>
+        <td><%= hidden_field_tag "lists[]", task.id, size: 5, id: false %><%= task.sort_list.sort + 1 %></td>
         <td class='priority'><%= Task.human_attribute_name(task.priority) %></td>
         <td class='created_at'><%= task.created_at.to_s(:taskdate) %></td>
         <td class='title'><%= truncate(task.title) %></td>
@@ -39,7 +38,6 @@
         <td class='deadline_at'><%= task.deadline_at.to_s(:taskdate) %></td>
         <td class='status'><%= Task.human_attribute_name(task.status) %></td>
       </tr>
-      <% index = index + 1 %>
       <% end %>
     </tbody>
   </table>
