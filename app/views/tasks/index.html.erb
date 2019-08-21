@@ -24,7 +24,7 @@
     <tbody>
       <% @tasks.each_with_index do |task| %>
       <tr class='list'>
-        <td><%= task.sort_list.sort + 1 %></td>
+        <td class='index'><%= task.sort_list.sort + 1 %></td>
         <td class='priority'><%= Task.human_attribute_name(task.priority) %></td>
         <td class='created_at'><%= task.created_at.to_s(:taskdate) %></td>
         <td class='title'><%= link_to task_path(task.id) do %><%= truncate(task.title) %><% end %></td>

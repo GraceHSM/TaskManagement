@@ -44,6 +44,23 @@ RSpec.describe TaskManagement, :type => :feature do
       user
       login
     end
+
+    context 'custom sort' do
+      before :each do
+        create(:task, user_id: user.id, priority: 0).create_sort_list(sort: 0)
+        create(:task, user_id: user.id, priority: 0).create_sort_list(sort: 1)
+        visit tasks_path
+        click_on ('No')
+      end
+      it 'ASC' do
+        expect(first('.list').find('.index')).to have_text(1)
+      end
+      it 'DESC' do
+        click_on ('No')
+        expect(first('.list').find('.index')).to have_text(2)
+      end
+    end
+
     context 'created at' do
       before :each do
         create_sorted_date('created_at')
