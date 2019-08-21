@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe TaskManagement, :type => :feature do
   let(:user){ create(:user, email:'abc@gmail.com') }
   let(:task){ create(:task, user_id: user.id) }
+  let(:sort_list){ create(:sort_list, task_id: task.id) }
   let(:title) { Faker::Lorem.sentence }
   let(:content) { Faker::Lorem.paragraph }
   let(:start_at) { DateTime.now - 1 }
@@ -23,6 +24,7 @@ RSpec.describe TaskManagement, :type => :feature do
 
     it 'Update' do
       old_task = task
+      sort_list
       visit edit_task_path(old_task.id)
       edit_task(old_task)
       check_page(I18n.t('edit_success'))
@@ -30,6 +32,7 @@ RSpec.describe TaskManagement, :type => :feature do
 
     it 'Destroy' do
       task
+      sort_list
       visit tasks_path
       expect{ click_on I18n.t('delete') }.to change{ Task.count }.by(-1)
     end
@@ -85,8 +88,8 @@ RSpec.describe TaskManagement, :type => :feature do
 
     context 'priority' do
       before :each do
-        create(:task, user_id: user.id, priority: 0)
-        create(:task, user_id: user.id, priority: 2)
+        create(:task, user_id: user.id, priority: 0).create_sort_list(sort: 0)
+        create(:task, user_id: user.id, priority: 2).create_sort_list(sort: 0)
         visit tasks_path
         click_on Task.human_attribute_name('priority')
       end
@@ -149,7 +152,7 @@ RSpec.describe TaskManagement, :type => :feature do
     before :each do
       user
       login
-      create(:task, user_id: user.id, title: 'abc123', status: 0)
+      create(:task, user_id: user.id, title: 'abc123', status: 0).create_sort_list(sort: 0)
       visit tasks_path
     end
     it 'status' do
@@ -207,7 +210,7 @@ RSpec.describe TaskManagement, :type => :feature do
   def create_sorted_date(col)
     column = col.to_sym
     2.times{ |n|
-      create(:task, user_id: user.id, column => (DateTime.now - n))
+      task = create(:task, user_id: user.id, column => (DateTime.now - n)).create_sort_list(sort: 0)
     }
     visit tasks_path
   end

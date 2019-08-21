@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :task_find, only: [:edit, :show, :update, :destroy]
-  after_action :reorder, only: [:create, :update, :destroy]
+  after_action :reorder, only: [:create, :destroy]
   def index
     @q = current_user.tasks.includes(:tags, :sort_list).order('sort_lists.sort asc').ransack(params[:q])
     @tasks = @q.result.page(params[:page]).per(5)
@@ -86,7 +86,7 @@ class TasksController < ApplicationController
   end
 
   def task_find
-    @task = Task.includes(:tags).find(params[:id])
+    @task = Task.find(params[:id])
   end
 
   def sort_params

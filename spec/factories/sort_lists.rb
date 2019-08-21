@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :sort_list do
-    task_id { 1 }
-    sort { 1 }
+    sort { 0 }
   end
 end
