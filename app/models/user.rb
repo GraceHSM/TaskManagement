@@ -18,8 +18,8 @@ class User < ApplicationRecord
   end
 
   def vaild_admin_account
-    if self.role == 'admin'
-      if User.where(role: 'admin').count < 1
+    if admin?
+      if User.admin.count <= 1
         throw :abort
       end
     end

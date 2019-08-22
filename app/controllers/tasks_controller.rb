@@ -4,7 +4,8 @@ class TasksController < ApplicationController
   after_action :reorder, only: [:create, :destroy]
   def index
     @q = current_user.tasks.includes(:tags, :sort_list).order('sort_lists.sort asc').ransack(params[:q])
-    @tasks = @q.result.page(params[:page]).per(5)
+    @tasks = @q.result(distinct: true).page(params[:page]).per(5)
+    # @tasks = @q.result.page(params[:page]).per(5)
   end
 
   def show
