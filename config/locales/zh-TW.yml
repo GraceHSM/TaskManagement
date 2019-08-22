@@ -34,6 +34,7 @@
   edit_success: '修改成功'
   delete_success: '刪除成功'
   submit: '確定'
+  cancel: '取消'
   choose_status: '選擇狀態'
   must_be_presence: '請輸入資料'
   must_be_choose_date: '請選擇日期'

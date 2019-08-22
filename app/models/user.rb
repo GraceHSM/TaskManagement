@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  before_save :digest_password
+  # before_save :digest_password
   before_destroy :vaild_admin_account
 
   has_many :tasks, dependent: :destroy
@@ -13,9 +13,9 @@ class User < ApplicationRecord
   enum role: { member: 0, admin: 1 }
 
   private
-  def digest_password
-    self.password = Digest::SHA256.hexdigest password
-  end
+  # def digest_password
+  #   self.password = Digest::SHA256.hexdigest password
+  # end
 
   def vaild_admin_account
     if admin?

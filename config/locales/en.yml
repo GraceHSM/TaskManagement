@@ -34,6 +34,7 @@ en:
   edit_success: 'Edit Task Success'
   delete_success: 'Delete Task Success'
   submit: 'Submit'
+  cancel: 'Cancel'
   choose_status: 'ChooseStatus'
   must_be_presence: 'must be presence'
   must_be_choose_date: 'must be choose date'
