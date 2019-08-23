@@ -19,7 +19,10 @@
       <td><%= link_to user_path(user.id) do %><%= user.tasks_count %>
       <% end %></td>
       <td><%= User.human_attribute_name(user.role) %></td>
-      <td><%= link_to t('edit'), edit_user_path(user), class: 'mr-3' %><%= link_to t('delete'), user_path(user), method: 'delete' %></td>
+      <td>
+        <%= link_to t('edit'), edit_user_path(user), class: 'border-bottom shadow btn btn-md btn-primary px-1 py-1 mr-1' %>
+        <%= link_to t('delete'), user_path(user), method:'DELETE', class: 'border-bottom shadow btn btn-md btn-danger px-1 py-1', data: { confirm: t('confirm_delete') } %>
+      </td>
     </tr>
     <% end %>
   </tbody>
