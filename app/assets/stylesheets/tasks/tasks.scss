@@ -4,7 +4,6 @@
   textarea{
     height: 100px;
   }
-
 }
 
 .tag{
@@ -18,4 +17,11 @@
   input[type="checkbox"]{
     display: none;
   }
+}
+.tags div{
+  width: 200px;
+}
+
+tr.list, .list td{
+  overflow: hidden;
 }
