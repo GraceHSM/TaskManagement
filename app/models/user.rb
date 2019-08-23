@@ -4,11 +4,12 @@ class User < ApplicationRecord
 
   has_many :tasks, dependent: :destroy
 
-  validates :email, :username, :password, presence: { message: I18n.t('must_be_presence') }
-  validates :email, uniqueness: { message: I18n.t('the_email_has_already_been_used')}
-  validates :password, confirmation: true
-  validates :password_confirmation, presence: true
-  validates :password, length: { minimum: 6 }
+  validates :username, presence: { message: I18n.t('must_be_presence') }
+  validates :email, :password, on: :create, presence: { message: I18n.t('must_be_presence') }
+  validates :email, on: :create, uniqueness: { message: I18n.t('the_email_has_already_been_used')}
+  validates :password, confirmation: true, on: :create
+  validates :password_confirmation, presence: true, on: :create
+  validates :password, length: { minimum: 6 }, on: :create
 
   enum role: { member: 0, admin: 1 }
 

@@ -11,22 +11,14 @@
 
     <body>
     <div class='container-fluid'>
-      <span class='notice'><%= flash[:notice] %></span>
-      <div class='pt-3 container-fluid d-flex justify-content-between'>
-        <ul class='d-flex pl-0'>
+      <span class='notice d-block py-1'><%= flash[:notice] %></span>
+      <div class='pt-1 container-fluid'>
+        <ul class='info d-flex pl-0'>
           <% if logged_in? %>
             <li><%= link_to t('signout'), logout_path, method:'delete' %></li>
             <li class='ml-3'>Hello, <%= @current_user.username %></li>
-          <% else %>
-            <li class='mr-3'><%= link_to t('signin'), login_path %></li>
           <% end %>
-        </ul>
-        <ul class='d-flex'>
-          <% if is_admin?(@current_user) %>
-          <li><%= link_to t('AdminUser'), users_path %></li>
-          <li class='ml-3'><%= link_to t('TaskLists'), tasks_path %></li>
-          <% end %>
-          <li class='ml-3'><%= link_to '中文', controller: 'tasks', action: 'index', locale: "zh-TW" %></li>
+          <li class='ml-auto'><%= link_to '中文', controller: 'tasks', action: 'index', locale: "zh-TW" %></li>
           <li class='ml-3'><%= link_to 'English', controller: 'tasks', action: 'index', locale: "en" %></li>
         </ul>
       </div>

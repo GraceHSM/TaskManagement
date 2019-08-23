@@ -1,12 +1,20 @@
+<%= render './shared/topbar' %>
 <section class="container-fluid">
-<h2 class='mt-3'><%= t('edit_user') %></h2>
-<%= simple_form_for @user do |f| %>
-  <%= f.input :username, label: t('user_name'), required:false %>
-  <%= f.input :password, label: t('password'), required:false, type:'password' %>
-  <%= f.input :password_confirmation, label: t('password_confirmation'), required:false, type: 'password' %>
-  <% if is_admin?(@current_user) %>
-    <%= f.input :role, label: t('role'), required: false, as: :radio_buttons, collection: [[User.human_attribute_name('admin'), 'admin'], [User.human_attribute_name('member'), 'member']], checked: 'member' %>
-  <% end %>
-<%= f.submit t('submit'), method: 'POST' %>
+  <h2 class='mt-3'><%= t('edit_user') %></h2>
+
+<%= form_with model: @user, url: user_path, method: 'PATCH', local: true, class:'form_user' do |f| %>
+  <%= label_tag t('user_name'), false, class: 'px-2 mt-3' %>
+  <%= f.text_field :username, placeholder: 'User Name', class: 'w-100 px-2' %>
+  <span class='d-block mt-1 pl-2 text-danger'><%= error_message('username') %>
+ </span>
+  <%= label_tag t('role'), false, class: 'px-2 py-2 mt-3' %>
+  <%= f.radio_button :role, 'admin' %>
+  <%= f.label :role_admin, User.human_attribute_name('admin'), class: 'pl-1 pr-3 py-2 mt-3' %>
+  <%= f.radio_button :role, 'member' %>
+  <%= f.label :role_member, User.human_attribute_name('member'), class: 'pl-1 pr-3 py-2 mt-3' %>
+  <div class='button mt-3 d-flex justify-content-end'>
+    <%= link_to t('cancel'), users_path, class: 'border-bottom border-secondary shadow btn btn-md btn-default px-3 py-2 mr-3' %>
+    <%= f.submit t('submit'), class: 'border-bottom shadow btn btn-md btn-primary px-3 py-2' %>
+  </div>
 <% end %>
 </section>
