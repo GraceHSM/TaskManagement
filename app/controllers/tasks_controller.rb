@@ -5,7 +5,8 @@ class TasksController < ApplicationController
 
   def index
     @q = current_user.tasks.includes(:tags, :sort_list).order('sort_lists.sort asc').ransack(params[:q])
-    @tasks = @q.result.page(params[:page]).per(5)
+    @tags = Tag.all
+    @tasks = @q.result.page(params[:page]).per(10)
   end
 
   def show
@@ -14,6 +15,8 @@ class TasksController < ApplicationController
   def new
     @task = current_user.tasks.new
     @tags = Tag.all
+    @errors = nil
+    @checked_tags = nil
   end
 
   def create
@@ -27,7 +30,11 @@ class TasksController < ApplicationController
       end
       redirect_to root_path, notice: t('create_success')
     else
-      @tags = Tag.all
+      @errors = @task.errors.messages
+      @checked_tags = tag_params.map do |tag_id|
+        Tag.find(tag_id)
+      end
+      @tags = Tag.all - @checked_tags
       render :new
     end
   end

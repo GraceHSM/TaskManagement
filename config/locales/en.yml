@@ -19,6 +19,8 @@ en:
   edit: 'Edit'
   delete: 'Delete'
   search: 'Search'
+  choose_one_tag_to_search: 'Choose one tag to search：'
+  tag_search: 'Search Tag : '
   new_task: 'New Task'
   custom_sort: 'Custom Sort'
   setting_sort: 'Setting sort by drag and drop, click SUBMIT when you finished'

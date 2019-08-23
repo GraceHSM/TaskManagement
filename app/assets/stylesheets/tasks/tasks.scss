@@ -1,3 +1,13 @@
-// Place all the styles related to the Tasks controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.form_task{
+  width: 600px;
+}
+
+.tag{
+  input{
+    display: none;
+  }
+  input:checked + label{
+  background-color: #007bff;
+  color: #fff;
+  }
+}

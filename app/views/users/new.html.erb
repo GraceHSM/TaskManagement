@@ -13,7 +13,7 @@
   <span class='d-block mt-1 pl-2 text-danger'><%= error_message('password') %></span>
   <%= f.password_field :password_confirmation, placeholder: 'Password Confirmation', type: 'password', class: 'w-100 mt-3 px-2' %>
   <span class='d-block mt-1 pl-2 text-danger'><%= error_message('password_confirmation') %></span>
-  <%= label_tag t('role'), false, class: 'px-2 py-2 mt-3' %>
+  <%= label_tag t('role'), false, class: 'pr-2 py-2 mt-3' %>
   <%= f.radio_button :role, 'admin' %>
   <%= f.label :role_admin, User.human_attribute_name('admin'), class: 'pl-1 pr-3 py-2 mt-3' %>
   <%= f.radio_button :role, 'member' %>

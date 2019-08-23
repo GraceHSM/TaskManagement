@@ -15,7 +15,6 @@ Rails.application.routes.draw do
       get :list
       post :sort
     end
-
   end
 
 end
