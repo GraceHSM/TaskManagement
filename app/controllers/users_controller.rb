@@ -1,17 +1,21 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, except: [:new, :create]
-  before_action :permission_check!
+  before_action :authenticate_user!, except: [:sign_up, :sign_up_process]
+  before_action :permission_check!, except: [:sign_up, :sign_up_process]
   before_action :user_find, only: [:edit, :show, :update, :destroy]
 
   def index
-    @users = User.page(params[:page]).per(5)
+    @users = User.page(params[:page]).per(10)
   end
 
   def show
-    @tasks = @user.tasks.page(params[:page]).per(5)
+    @tasks = @user.tasks.includes(:tags).page(params[:page]).per(10)
   end
 
   def new
+    @user = User.new
+  end
+
+  def sign_up
     @user = User.new
   end
 
@@ -21,6 +25,16 @@ class UsersController < ApplicationController
       redirect_to users_path, notice: t('create_success')
     else
       render :new
+    end
+  end
+
+  def sign_up_process
+    @user = User.new(user_params)
+    if @user.save
+      log_in @user
+      redirect_to tasks_path, notice: t('welcome')
+    else
+      render :sign_up
     end
   end
 

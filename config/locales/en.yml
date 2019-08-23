@@ -13,8 +13,10 @@ en:
   permission_denied: 'Permission denied'
   admin_less_than_1: 'Admin less than 1'
   you_can_not_delete_yourself: "You can't delete yourself"
+  back_signin: 'Back to login page'
   signin: 'Log In'
   signup: 'Sign Up'
+  welcome: 'welcome！'
   signout: 'Log Out'
   edit: 'Edit'
   delete: 'Delete'

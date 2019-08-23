@@ -1,0 +1,22 @@
+.sign_in{
+  width: 260px;
+  margin: 0 auto;
+  input{
+    line-height: 40px;
+  }
+  input[type='submit']{
+    line-height: initial;
+  }
+  h2{
+    text-align: center;
+  }
+}
+
+.form_signin{
+  width: 440px;
+  text-align: center;
+  .form_user{
+    margin: 0 auto;
+  }
+
+}

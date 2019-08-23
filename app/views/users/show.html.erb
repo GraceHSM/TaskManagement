@@ -8,6 +8,7 @@
         <th><%= Task.human_attribute_name('created_at') %></th>
         <th><%= Task.human_attribute_name('title') %></th>
         <th><%= Task.human_attribute_name('content') %></th>
+        <th><%= TaskTag.human_attribute_name('label') %></th>
         <th><%= Task.human_attribute_name('start_at') %></th>
         <th><%= Task.human_attribute_name('deadline_at') %></th>
         <th><%= Task.human_attribute_name('status') %></th>
@@ -20,6 +21,15 @@
         <td class='created_at'><%= task.created_at.to_s(:taskdate) %></td>
         <td class='title'><%= truncate(task.title) %></td>
         <td class='content'><%= truncate(task.content) %></td>
+        <td class='tags'>
+          <div class='d-flex flex-wrap'>
+          <% if !task.tags.nil? %>
+            <% task.tags.each do |tag| %>
+              <span class='tag rounded border border-1 border-dark px-1 py-1 mr-1 mb-1'><%= tag.label %></span>
+            <% end %>
+          <% end %>
+          </div>
+        </td>
         <td class='start_at'><%= task.start_at.to_s(:taskdate) %></td>
         <td class='deadline_at'><%= task.deadline_at.to_s(:taskdate) %></td>
         <td class='status'><%= Task.human_attribute_name(task.status) %></td>

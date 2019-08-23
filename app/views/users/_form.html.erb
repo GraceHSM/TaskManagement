@@ -1,0 +1,30 @@
+<% if is_admin?(@current_user) %>
+  <h2 class='mt-3'><%= t('new_user') %></h2>
+<% else %>
+  <h2 class='mt-3'><%= t('signup') %></h2>
+<% end %>
+<%= form_with model: user, url: path, method: 'POST', local: true, class:'form_user' do |f| %>
+  <%= f.text_field :username, placeholder: 'User Name', class: 'w-100 mt-3 px-2' %>
+  <span class='d-block mt-1 pl-2 text-danger'><%= error_message('username') %></span>
+  <%= f.email_field :email, placeholder: 'E-mail', class: 'w-100 mt-3 px-2' %>
+  <span class='d-block mt-1 pl-2 text-danger'><%= error_message('email') %></span>
+  <%= f.password_field :password, placeholder: 'Password', type: 'password', class: 'w-100 mt-3 px-2' %>
+  <span class='d-block mt-1 pl-2 text-danger'><%= error_message('password') %></span>
+  <%= f.password_field :password_confirmation, placeholder: 'Password Confirmation', type: 'password', class: 'w-100 mt-3 px-2' %>
+  <span class='d-block mt-1 pl-2 text-danger'><%= error_message('password_confirmation') %></span>
+  <% if is_admin?(@current_user) %>
+    <%= label_tag t('role'), false, class: 'pr-2 py-2 mt-3' %>
+    <%= f.radio_button :role, 'admin' %>
+    <%= f.label :role_admin, User.human_attribute_name('admin'), class: 'pl-1 pr-3 py-2 mt-3' %>
+    <%= f.radio_button :role, 'member' %>
+    <%= f.label :role_member, User.human_attribute_name('member'), class: 'pl-1 pr-3 py-2 mt-3' %>
+  <% end %>
+  <div class='button mt-4 d-flex justify-content-end'>
+    <% if is_admin?(@current_user) %>
+      <%= link_to t('cancel'), users_path, class: 'shadow btn btn-md btn-default px-3 py-2 mr-3' %>
+    <% else %>
+      <%= link_to t('back_signin'), users_path, class: 'shadow btn btn-md btn-default px-3 py-2 mr-auto' %>
+    <% end %>
+    <%= f.submit t('submit'), class: 'shadow btn btn-md btn-primary px-3 py-2' %>
+  </div>
+<% end %>

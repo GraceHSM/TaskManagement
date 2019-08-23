@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-  get '/signup', to: 'users#new'
+  get '/signup', to: 'users#sign_up'
+  post '/signup', to: 'users#sign_up_process'
+
   scope 'admin' do
     resources :users
   end
