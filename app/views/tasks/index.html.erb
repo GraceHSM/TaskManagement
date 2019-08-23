@@ -22,19 +22,22 @@
         <td class='index'><%= task.sort_list.sort + 1 %></td>
         <td class='priority'><%= Task.human_attribute_name(task.priority) %></td>
         <td class='created_at'><%= task.created_at.to_s(:taskdate) %></td>
-        <td class='title'><%= link_to task_path(task.id) do %><%= truncate(task.title) %><% end %></td>
-        <td class='content'><%= link_to task_path(task.id) do %><%= truncate(task.content) %><% end %></td>
-        <td class='tags'>
+        <td class='title'><%= link_to task_path(task.id) do %><%= truncate(task.title, length: 30) %><% end %></td>
+        <td class='content'><%= link_to task_path(task.id) do %><%= truncate(task.content, length: 20) %><% end %></td>
+        <td class='tags d-flex flex-wrap'>
           <% if !task.tags.nil? %>
             <% task.tags.each do |tag| %>
-              <span class='tag'><%= tag.label %></span>
+              <span class='tag rounded border border-1 border-dark px-1 py-1 mr-1 mt-1'><%= tag.label %></span>
             <% end %>
           <% end %>
         </td>
         <td class='start_at'><%= task.start_at.to_s(:taskdate) %></td>
         <td class='deadline_at'><%= task.deadline_at.to_s(:taskdate) %></td>
         <td class='status'><%= Task.human_attribute_name(task.status) %></td>
-        <td><%= link_to t('edit'), edit_task_path(task), class:'mr-3' %><%= link_to t('delete'), task_path(task), method: 'DELETE' %></td>
+        <td>
+          <%= link_to t('edit'), edit_task_path(task), class: 'border-bottom shadow btn btn-md btn-primary px-1 py-1 mr-1' %>
+          <%= link_to t('delete'), task_path(task), method:'DELETE', class: 'border-bottom shadow btn btn-md btn-danger px-1 py-1', data: { confirm: t('confirm_delete') } %>
+        </td>
       </tr>
       <% end %>
     </tbody>

@@ -1,7 +1,7 @@
 <%= render './shared/topbar', :@current_user => @task.user %>
-<section class="container">
+<section class="container-fluid">
 <h2 class='mt-3'><%= t('TaskDetail') %></h2>
-<table>
+<table class='table'>
   <tr>
     <th><%= Task.human_attribute_name('title') %></th>
     <td><%= @task.title %></td>
@@ -11,10 +11,10 @@
     <td><%= @task.content %></td>
   </tr>
   <tr>
-    <th>Tag</th>
+    <th><%= TaskTag.human_attribute_name('label') %></th>
     <td>
       <% @task.tags.each do |tag| %>
-        <span class='tag'><%= tag.label %></span>
+        <span class='tag rounded border border-1 border-dark px-1 py-1'><%= tag.label %></span>
       <% end %>
     </td>
   </tr>
@@ -37,6 +37,15 @@
   <tr>
     <th><%= Task.human_attribute_name('created_at') %></th>
     <td><%= @task.created_at.to_s(:taskdate) %></td>
+  </tr>
+  <tr>
+    <td colspan='2'>
+      <div class='button mt-3 mb-5 d-flex justify-content-end'>
+      <%= link_to t('TaskLists'), tasks_path, class: 'border-bottom border-secondary shadow btn btn-md btn-default px-3 py-2 mr-auto' %>
+      <%= link_to t('edit'), edit_task_path(@task), class: 'border-bottom shadow btn btn-md btn-primary px-3 py-2 mr-4' %>
+      <%= link_to t('delete'), task_path(@task), method:'DELETE', class: 'border-bottom shadow btn btn-md btn-danger px-3 py-2', data: { confirm: t('confirm_delete') } %>
+    </td>
+  </div>
   </tr>
 </table>
 
