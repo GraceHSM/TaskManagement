@@ -25,3 +25,7 @@
 tr.list, .list td{
   overflow: hidden;
 }
+
+.form_task .field_with_errors{
+  display: inline-block;
+}

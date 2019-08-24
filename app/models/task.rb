@@ -5,8 +5,9 @@ class Task < ApplicationRecord
   has_many :tags, through: :task_tags
 
   validates :title, :content, presence: { message: I18n.t('must_be_presence') }
-  validates :start_at, :deadline_at, presence: { message: I18n.t('must_be_choose_date') }
-  validates :priority, :status, presence: { message: I18n.t('must_be_choose_option') }
+  validates :priority, :status, presence: true
+  validates :start_at, presence: { message: I18n.t('must_be_choose_date') }
+  validates :deadline_at, presence: { message: I18n.t('must_be_choose_date') }
   validate :start_at_cannot_greater_than_deadline
 
   enum status: { pending: 0, processing: 1, completed: 2 }

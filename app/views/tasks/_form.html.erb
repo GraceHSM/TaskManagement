@@ -29,11 +29,13 @@
     <%= f.label :start_at, Task.human_attribute_name('start_at'), class: 'mr-2' %>
     <%= f.date_field :start_at, value: DateTime.now.to_s(:taskdate), class: 'px-2' %>
   </div>
+  <span class='d-block mt-1 pl-2 text-danger'><%= task_error_message('start_at') %></span>
 
   <div class='w-100 mt-3'>
     <%= f.label :deadline_at, Task.human_attribute_name('deadline_at'), class: 'mr-2' %>
     <%= f.date_field :deadline_at, value: DateTime.now.to_s(:taskdate), class: 'px-2' %>
   </div>
+  <span class='d-block mt-1 pl-2 text-danger'><%= task_error_message('deadline_at') %></span>
 
   <div class='w-100 mt-3 d-flex flex-wrap'>
     <% if checked_tags %>
