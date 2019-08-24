@@ -30,6 +30,7 @@ class UsersController < ApplicationController
 
   def sign_up_process
     @user = User.new(user_params)
+
     if @user.save
       log_in @user
       redirect_to tasks_path, notice: t('welcome')
@@ -68,5 +69,9 @@ class UsersController < ApplicationController
 
   def user_find
     @user = User.find(params[:id])
+  end
+
+  def pwd_digest(pwd)
+    Digest::SHA256.hexdigest pwd
   end
 end
