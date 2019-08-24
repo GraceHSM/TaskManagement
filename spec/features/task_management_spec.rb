@@ -50,13 +50,17 @@ RSpec.describe TaskManagement, :type => :feature do
         create(:task, user_id: user.id, priority: 0).create_sort_list(sort: 0)
         create(:task, user_id: user.id, priority: 0).create_sort_list(sort: 1)
         visit tasks_path
-        click_on ('No')
+        within(first('th')) do
+          click_on 'No'
+        end
       end
       it 'ASC' do
         expect(first('.list').find('.index')).to have_text(1)
       end
       it 'DESC' do
-        click_on ('No')
+        within(first('th')) do
+          click_on 'No'
+        end
         expect(first('.list').find('.index')).to have_text(2)
       end
     end
@@ -169,7 +173,10 @@ RSpec.describe TaskManagement, :type => :feature do
     before :each do
       user
       login
-      create(:task, user_id: user.id, title: 'abc123', status: 0).create_sort_list(sort: 0)
+      task = create(:task, user_id: user.id, title: 'abc123', status: 0)
+      task.create_sort_list(sort: 0)
+      tag = create(:tag, label: 'here')
+      task.task_tags.create(tag_id: tag.id)
       visit tasks_path
     end
     it 'status' do
@@ -179,18 +186,26 @@ RSpec.describe TaskManagement, :type => :feature do
       expect(find('.list')).to have_content(Task.human_attribute_name('pending'))
     end
     it 'title' do
-      fill_in 'q_title_or_tags_label_cont', with: 'c12'
+      fill_in 'q_title_cont', with: 'c12'
       click_on I18n.t('search')
       expect(find('.list')).to have_content('abc123')
     end
 
     it 'status and title' do
-      fill_in 'q_title_or_tags_label_cont', with: 'c12'
+      fill_in 'q_title_cont', with: 'c12'
       select(Task.human_attribute_name('pending'), from: 'q_status_eq')
       click_on I18n.t('search')
       expect(find('.list')).not_to have_content(Task.human_attribute_name('processing'))
       expect(find('.list')).to have_content(Task.human_attribute_name('pending'))
       expect(find('.list')).to have_content('abc123')
+    end
+
+    it 'tag' do
+      within('.search .tag') do
+        choose 'here'
+      end
+      click_on I18n.t('search')
+      expect(find('.list .tags')).to have_content('here')
     end
   end
 
