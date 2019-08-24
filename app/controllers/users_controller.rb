@@ -1,14 +1,17 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:sign_up, :sign_up_process]
   before_action :permission_check!, except: [:sign_up, :sign_up_process]
-  before_action :user_find, only: [:edit, :show, :update, :destroy]
+  before_action :user_find, only: [:edit, :show, :tasks, :update, :destroy]
 
   def index
     @users = User.page(params[:page]).per(10)
   end
 
-  def show
+  def tasks
     @tasks = @user.tasks.includes(:tags).page(params[:page]).per(10)
+  end
+
+  def show
   end
 
   def new

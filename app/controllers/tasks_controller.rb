@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
-  before_action :task_find, only: [:edit, :show, :update, :destroy]
+  before_action :task_find, only: [:edit, :show, :show_user_task, :update, :destroy]
   before_action :reorder, only: [:index, :list]
 
   def index
@@ -10,6 +10,11 @@ class TasksController < ApplicationController
   end
 
   def show
+    @current_user = current_user
+  end
+
+  def show_user_task
+    @current_user = current_user
   end
 
   def new

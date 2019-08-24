@@ -9,13 +9,20 @@ Rails.application.routes.draw do
   post '/signup', to: 'users#sign_up_process'
 
   scope 'admin' do
-    resources :users
+    resources :users do
+      member do
+        get :tasks
+      end
+    end
   end
 
   resources :tasks do
     collection do
       get :list
       post :sort
+    end
+    member do
+      get :show_user_task
     end
   end
 

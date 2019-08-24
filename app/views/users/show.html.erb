@@ -1,41 +1,31 @@
 <%= render './shared/topbar' %>
 <section class="container-fluid">
-  <h2 class='mt-3'><%= t('TaskLists') %>( <%= @user.username %> )</h2>
+  <h2 class='mt-3'><%= t('UserDetail') %>( <%= @user.username %> )</h2>
   <%= content_tag :table , class: 'table mt-3' do %>
-    <thead>
-      <tr>
-        <th><%= Task.human_attribute_name('priority') %></th>
-        <th><%= Task.human_attribute_name('created_at') %></th>
-        <th><%= Task.human_attribute_name('title') %></th>
-        <th><%= Task.human_attribute_name('content') %></th>
-        <th><%= TaskTag.human_attribute_name('label') %></th>
-        <th><%= Task.human_attribute_name('start_at') %></th>
-        <th><%= Task.human_attribute_name('deadline_at') %></th>
-        <th><%= Task.human_attribute_name('status') %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @tasks.each do |task| %>
-      <tr class='list'>
-        <td class='priority'><%= Task.human_attribute_name(task.priority) %></td>
-        <td class='created_at'><%= task.created_at.to_s(:taskdate) %></td>
-        <td class='title'><%= truncate(task.title) %></td>
-        <td class='content'><%= truncate(task.content) %></td>
-        <td class='tags'>
-          <div class='d-flex flex-wrap'>
-          <% if !task.tags.nil? %>
-            <% task.tags.each do |tag| %>
-              <span class='tag rounded border border-1 border-dark px-1 py-1 mr-1 mb-1'><%= tag.label %></span>
-            <% end %>
-          <% end %>
-          </div>
-        </td>
-        <td class='start_at'><%= task.start_at.to_s(:taskdate) %></td>
-        <td class='deadline_at'><%= task.deadline_at.to_s(:taskdate) %></td>
-        <td class='status'><%= Task.human_attribute_name(task.status) %></td>
-      </tr>
-      <% end %>
-    </tbody>
+    <tr>
+      <th><%= I18n.t('role') %></th>
+      <td><%= @user.role %></td>
+    </tr>
+      <th><%= I18n.t('email') %></th>
+      <td><%= @user.email %></td>
+    <tr>
+      <th><%= User.human_attribute_name('created_at') %></th>
+      <td><%= @user.created_at %></td>
+    </tr>
+    <tr>
+      <th><%= I18n.t('task_count') %></th>
+      <td>
+        <%= link_to tasks_user_path(@user.id) do %>
+          <%= @user.tasks_count %></td>
+        <% end %>
+    </tr>
+    <tr>
+      <td colspan='2'>
+        <div class='button mt-3 mb-5 d-flex justify-content-end'>
+        <%= link_to t('UserLists'), users_path, class: 'border-bottom border-secondary shadow btn btn-md btn-default px-3 py-2 mr-auto' %>
+        <%= link_to t('edit'), edit_user_path(@user), class: 'border-bottom shadow btn btn-md btn-primary px-3 py-2 mr-4' %>
+        <%= link_to t('delete'), user_path(@user), method:'DELETE', class: 'border-bottom shadow btn btn-md btn-danger px-3 py-2', data: { confirm: t('confirm_delete') } %>
+      </td>
+    </tr>
   <% end %>
 </section>
-<%= paginate @tasks %>

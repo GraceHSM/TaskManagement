@@ -14,10 +14,21 @@
   <tbody>
     <% @users.each do |user| %>
     <tr>
-      <td><%= user.username %></td>
-      <td><%= user.email %></td>
-      <td><%= link_to user_path(user.id) do %><%= user.tasks_count %>
-      <% end %></td>
+      <td>
+        <%= link_to user_path(user.id) do %>
+          <%= user.username %>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to user_path(user.id) do %>
+        <%= user.email %>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to tasks_user_path(user.id) do %>
+          <%= user.tasks_count %>
+        <% end %>
+      </td>
       <td><%= User.human_attribute_name(user.role) %></td>
       <td>
         <%= link_to t('edit'), edit_user_path(user), class: 'border-bottom shadow btn btn-md btn-primary px-1 py-1 mr-1' %>

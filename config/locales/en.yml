@@ -2,6 +2,7 @@ en:
   TaskManagement: 'TaskManagement'
   TaskLists: 'Task Lists'
   TaskDetail: 'Task Details'
+  UserDetail: 'User Details'
   UserLists: 'User Lists'
   AdminUser: 'Admin Users'
   NewUser: 'New User ？ '
@@ -14,6 +15,7 @@ en:
   admin_less_than_1: 'Admin less than 1'
   you_can_not_delete_yourself: "You can't delete yourself"
   back_signin: 'Back to login page'
+  back: 'Back'
   signin: 'Log In'
   signup: 'Sign Up'
   welcome: 'welcome！'
