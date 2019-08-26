@@ -35,11 +35,7 @@ class TasksController < ApplicationController
       end
       redirect_to root_path, notice: t('create_success')
     else
-      @errors = @task.errors.messages
-      @checked_tags = tag_params.map do |tag_id|
-        Tag.find(tag_id)
-      end
-      @tags = Tag.all - @checked_tags
+      task_save_error
       render :new
     end
   end
@@ -63,6 +59,7 @@ class TasksController < ApplicationController
       end
       redirect_to root_path, notice: t('edit_success')
     else
+      task_save_error
       render :edit
     end
   end
@@ -96,6 +93,14 @@ class TasksController < ApplicationController
     else
       return []
     end
+  end
+
+  def task_save_error
+    @errors = @task.errors.messages
+    @checked_tags = tag_params.map do |tag_id|
+      Tag.find(tag_id)
+    end
+    @tags = Tag.all - @checked_tags
   end
 
   def task_find
