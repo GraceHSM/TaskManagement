@@ -1,0 +1,38 @@
+<tbody>
+  <tr>
+    <th><%= Task.human_attribute_name('title') %></th>
+    <td><%= task.title %></td>
+  </tr>
+  <tr>
+    <th><%= Task.human_attribute_name('content') %></th>
+    <td><%= task.content %></td>
+  </tr>
+  <tr>
+    <th><%= TaskTag.human_attribute_name('label') %></th>
+    <td>
+      <% task.tags.each do |tag| %>
+        <span class='tag rounded border border-1 border-dark px-1 py-1'><%= tag.label %></span>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th><%= Task.human_attribute_name('start_at') %></th>
+    <td><%= task.start_at.to_s(:taskdate) %></td>
+  </tr>
+  <tr>
+    <th><%= Task.human_attribute_name('deadline_at') %></th>
+    <td><%= task.deadline_at.to_s(:taskdate) %></td>
+  </tr>
+  <tr>
+    <th><%= Task.human_attribute_name('status') %></th>
+    <td><%= Task.human_attribute_name(task.status) %></td>
+  </tr>
+  <tr>
+    <th><%= Task.human_attribute_name('priority') %></th>
+    <td><%= Task.human_attribute_name(task.priority) %></td>
+  </tr>
+  <tr>
+    <th><%= Task.human_attribute_name('created_at') %></th>
+    <td><%= task.created_at.to_s(:taskdate) %></td>
+  </tr>
+</tbody>

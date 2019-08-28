@@ -46,6 +46,12 @@ gem 'ransack', '~> 2.1', '>= 2.1.1'
 
 gem 'kaminari', '~> 1.1', '>= 1.1.1'
 
+gem 'factory_bot_rails', '~> 5.0', '>= 5.0.2'
+
+gem 'faker', '~> 1.6', '>= 1.6.6'
+
+gem 'webpacker', '~> 4.0', '>= 4.0.7'
+
 group :development, :test do
 
   gem 'rspec-rails', '~> 3.8', '>= 3.8.2'
@@ -55,8 +61,6 @@ group :development, :test do
 
   gem 'pry-rails', '~> 0.3.9'
 
-  gem 'factory_bot_rails', '~> 5.0', '>= 5.0.2'
-  gem 'faker', '~> 1.6', '>= 1.6.6'
 end
 
 group :development do
@@ -66,6 +70,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'nokogiri', '>= 1.10.4'
 end
 
 group :test do

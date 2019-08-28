@@ -1,3 +1,32 @@
-// Place all the styles related to the Tasks controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.form_task{
+  width: 600px;
+
+  textarea{
+    height: 100px;
+  }
+}
+
+.tag{
+  input:checked + label{
+  background-color: #007bff;
+  color: #fff;
+  }
+  input{
+    display: none;
+  }
+  input[type="checkbox"]{
+    display: none;
+  }
+}
+.tags div{
+  width: 200px;
+}
+
+tr.list, .list td{
+  overflow: hidden;
+}
+
+.form_task .field_with_errors{
+  width: 100%;
+  display: inline-block;
+}

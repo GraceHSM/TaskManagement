@@ -1,0 +1,49 @@
+<%= render 'shared/topbar' %>
+<section class="container-fluid">
+  <h2 class='mt-3'><%= t('TaskLists') %>( <%= @user.username %> )</h2>
+  <%= content_tag :table , class: 'table mt-3' do %>
+    <thead>
+      <tr>
+        <th><%= Task.human_attribute_name('priority') %></th>
+        <th><%= Task.human_attribute_name('created_at') %></th>
+        <th><%= Task.human_attribute_name('title') %></th>
+        <th><%= Task.human_attribute_name('content') %></th>
+        <th><%= TaskTag.human_attribute_name('label') %></th>
+        <th><%= Task.human_attribute_name('start_at') %></th>
+        <th><%= Task.human_attribute_name('deadline_at') %></th>
+        <th><%= Task.human_attribute_name('status') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+      <tr class='list'>
+        <td class='priority'><%= Task.human_attribute_name(task.priority) %></td>
+        <td class='created_at'><%= task.created_at.to_s(:taskdate) %></td>
+        <td class='title'>
+          <%= link_to show_user_task_task_path(task.id) do %>
+            <%= truncate(task.title, length: 20) %>
+          <% end %>
+        </td>
+        <td class='content'>
+          <%= link_to show_user_task_task_path(task.id) do %>
+            <%= truncate(task.content) %>
+          <% end %>
+        </td>
+        <td class='tags'>
+          <div class='d-flex flex-wrap'>
+          <% if !task.tags.nil? %>
+            <% task.tags.each do |tag| %>
+              <span class='tag rounded border border-1 border-dark px-1 py-1 mr-1 mb-1'><%= tag.label %></span>
+            <% end %>
+          <% end %>
+          </div>
+        </td>
+        <td class='start_at'><%= task.start_at.to_s(:taskdate) %></td>
+        <td class='deadline_at'><%= task.deadline_at.to_s(:taskdate) %></td>
+        <td class='status'><%= Task.human_attribute_name(task.status) %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  <% end %>
+</section>
+<%= paginate @tasks %>

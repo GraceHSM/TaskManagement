@@ -1,47 +1,76 @@
 en:
   TaskManagement: 'TaskManagement'
   TaskLists: 'Task Lists'
+  TaskDetail: 'Task Details'
+  UserDetail: 'User Details'
   UserLists: 'User Lists'
-  signin: 'Sign In'
+  AdminUser: 'Admin Users'
+  NewUser: 'New User ？ '
+  please_login: 'Please Login'
+  please_login_again: 'Please login again'
+  password_confirmation: 'Input the same password'
+  page_not_found: 'Page not found'
+  internal_error: '500'
+  permission_denied: 'Permission denied'
+  admin_less_than_1: 'Admin less than 1'
+  you_can_not_delete_yourself: "You can't delete yourself"
+  back_signin: 'Back to login page'
+  back: 'Back'
+  signin: 'Log In'
   signup: 'Sign Up'
-  signout: 'Sign Out'
-  title: 'Title'
-  content: 'Content'
-  priority: 'Priority'
-  status: 'Status'
-  start_at: 'Start_at'
-  deadline_at: 'Deadline at'
+  welcome: 'welcome！'
+  signout: 'Log Out'
   edit: 'Edit'
   delete: 'Delete'
+  confirm_delete: 'Are you sure to delete？'
   search: 'Search'
+  reset: 'Reset'
+  choose_one_tag_to_search: 'Choose one tag to search：'
+  tag_search: 'Search Tag : '
   new_task: 'New Task'
+  custom_sort: 'Custom Sort'
+  setting_sort: 'Setting sort by drag and drop, click SUBMIT when you finished'
   edit_task: 'Edit Task'
+  role: 'Authorization'
   new_user: 'Create User'
   edit_user: 'Edit User'
   user_name: 'User Name'
   email: 'E-mail'
+  password: 'Password'
   task_count: 'Task Count'
   create_success: 'Create Task Success'
   edit_success: 'Edit Task Success'
   delete_success: 'Delete Task Success'
   submit: 'Submit'
+  cancel: 'Cancel'
   choose_status: 'ChooseStatus'
   must_be_presence: 'must be presence'
   must_be_choose_date: 'must be choose date'
   must_be_choose_option: 'must be choose option'
   start_at_cannot_greater_than_deadline: "start date can't greater than deadline"
-
+  the_email_has_already_been_used: 'The email has already been used'
+  more_than_6_character: 'Your password has to more than 6 character'
   activerecord:
-    models:
-      user: Task
     attributes:
-      user:
+      task:
+        title: 'Title'
+        content: 'Content'
+        priority: 'Priority'
+        status: 'Status'
+        start_at: 'Start at'
+        deadline_at: 'Deadline at'
+        created_at: 'Create at'
         primary: primary
         secondly: secondly
         common: common
         pending: pending
         processing: processing
         completed: completed
+      task_tag:
+        label: 'Tags'
+      user:
+        admin: 'Admin'
+        member: 'Member'
 
   views:
     pagination:

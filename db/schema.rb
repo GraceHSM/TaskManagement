@@ -10,16 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_05_034605) do
+ActiveRecord::Schema.define(version: 2019_08_20_115628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "tags", force: :cascade do |t|
-    t.string "label"
-    t.integer "user_id"
+  create_table "sort_lists", force: :cascade do |t|
+    t.integer "task_id"
+    t.integer "sort"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "label"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["label"], name: "index_tags_on_label"
   end
 
   create_table "task_tags", force: :cascade do |t|
@@ -39,7 +46,6 @@ ActiveRecord::Schema.define(version: 2019_08_05_034605) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["title"], name: "index_tasks_on_title"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
@@ -50,6 +56,8 @@ ActiveRecord::Schema.define(version: 2019_08_05_034605) do
     t.integer "role", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "tasks_count", default: 0
+    t.index ["email"], name: "index_users_on_email"
   end
 
 end

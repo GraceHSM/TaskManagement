@@ -1,0 +1,18 @@
+<%= render 'shared/topbar' %>
+<section class="container-fluid">
+<h2 class='mt-3'><%= t('TaskDetail') %></h2>
+<table class='table'>
+  <%= render 'shared/taskshow', task: @task %>
+  <tfoot>
+    <tr>
+      <td colspan='2'>
+        <div class='button mt-3 mb-5 d-flex justify-content-end'>
+          <%= link_to t('TaskLists'), tasks_path, class: 'border-bottom border-secondary shadow btn btn-md btn-default px-3 py-2 mr-auto' %>
+          <%= link_to t('edit'), edit_task_path(@task), class: 'border-bottom shadow btn btn-md btn-primary px-3 py-2 mr-4' %>
+          <%= link_to t('delete'), task_path(@task), method:'DELETE', class: 'border-bottom shadow btn btn-md btn-danger px-3 py-2', data: { confirm: t('confirm_delete') } %>
+        </div>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+</section>

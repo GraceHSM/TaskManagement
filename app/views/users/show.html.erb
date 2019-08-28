@@ -1,0 +1,31 @@
+<%= render 'shared/topbar' %>
+<section class="container-fluid">
+  <h2 class='mt-3'><%= t('UserDetail') %>( <%= @user.username %> )</h2>
+  <%= content_tag :table , class: 'table mt-3' do %>
+    <tr>
+      <th><%= I18n.t('role') %></th>
+      <td><%= @user.role %></td>
+    </tr>
+      <th><%= I18n.t('email') %></th>
+      <td><%= @user.email %></td>
+    <tr>
+      <th><%= User.human_attribute_name('created_at') %></th>
+      <td><%= @user.created_at %></td>
+    </tr>
+    <tr>
+      <th><%= I18n.t('task_count') %></th>
+      <td>
+        <%= link_to tasks_user_path(@user.id) do %>
+          <%= @user.tasks_count %></td>
+        <% end %>
+    </tr>
+    <tr>
+      <td colspan='2'>
+        <div class='button mt-3 mb-5 d-flex justify-content-end'>
+        <%= link_to t('UserLists'), users_path, class: 'border-bottom border-secondary shadow btn btn-md btn-default px-3 py-2 mr-auto' %>
+        <%= link_to t('edit'), edit_user_path(@user), class: 'border-bottom shadow btn btn-md btn-primary px-3 py-2 mr-4' %>
+        <%= link_to t('delete'), user_path(@user), method:'DELETE', class: 'border-bottom shadow btn btn-md btn-danger px-3 py-2', data: { confirm: t('confirm_delete') } %>
+      </td>
+    </tr>
+  <% end %>
+</section>
