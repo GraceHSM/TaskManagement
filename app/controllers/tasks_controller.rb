@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :task_find, only: [:edit, :show, :show_user_task, :update, :destroy]
   before_action :reorder, only: [:index, :list]
+  before_action :current, only: [:show, :show_user_task, :edit]
 
   def index
     @q = current_user.tasks.includes(:tags, :sort_list).order('sort_lists.sort asc').ransack(params[:q])
@@ -10,18 +11,14 @@ class TasksController < ApplicationController
   end
 
   def show
-    @current_user = current_user
   end
 
   def show_user_task
-    @current_user = current_user
   end
 
   def new
     @task = current_user.tasks.new
     @tags = Tag.all
-    @errors = nil
-    @checked_tags = nil
   end
 
   def create
@@ -82,6 +79,10 @@ class TasksController < ApplicationController
   end
 
   private
+
+  def current
+    @current_user = current_user
+  end
 
   def task_params
     params.require(:task).permit(:title, :content, :priority, :status, :start_at, :deadline_at)

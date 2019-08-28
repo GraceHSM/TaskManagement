@@ -8,6 +8,6 @@ module TasksHelper
   end
 
   def task_author?(task)
-    true if task.id == current.user
+    task.id == current.user
   end
 end
