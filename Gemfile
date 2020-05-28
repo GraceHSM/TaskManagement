@@ -44,7 +44,7 @@ gem 'bootstrap', '~> 4.3', '>= 4.3.1'
 
 gem 'ransack', '~> 2.1', '>= 2.1.1'
 
-gem 'kaminari', '~> 1.1', '>= 1.1.1'
+gem 'kaminari', '~> 1.2'
 
 gem 'factory_bot_rails', '~> 5.0', '>= 5.0.2'
 
